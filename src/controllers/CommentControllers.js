@@ -1,5 +1,6 @@
 import {
   insertComment,
+  insertManyComments,
   updateComment,
   getAllComments,
   getCommentById,
@@ -12,6 +13,19 @@ const createCommentController = async (req, res) => {
     userId: req.payload.sub.id,
   });
   res.status(status).send(data);
+};
+
+const createManyCommentsController = async (req, res) => {
+  const { status, data } = await insertManyComments(req.body);
+  res.status(status).send(data);
+};
+
+const createCommentsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyCommentsController(req, res, next);
+  } else {
+    return createCommentController(req, res, next);
+  }
 };
 
 const getAllCommentsController = async (req, res) => {
@@ -36,7 +50,7 @@ const deleteCommentController = async (req, res) => {
 };
 
 export default {
-  createCommentController,
+  createCommentsController,
   getAllCommentsController,
   getOneCommentController,
   updateCommentController,

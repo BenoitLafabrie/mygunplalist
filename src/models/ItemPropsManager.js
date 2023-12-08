@@ -26,6 +26,23 @@ const insertItemProps = async ({ grade, scale, series, itemId }) => {
   }
 };
 
+const insertManyItemProps = async (items) => {
+  try {
+    const result = await prisma.items.createMany({
+      data: items.map((item) => ({
+        grade: item.grade,
+        scale: item.scale,
+        series: item.series,
+        itemId: item.itemId,
+      })),
+    });
+    return { status: 201, data: result };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, data: "Internal Error" };
+  }
+};
+
 const getAllItemProps = async () => {
   try {
     const getAllItemProps = await prisma.itemProps.findMany({
@@ -105,6 +122,7 @@ const deleteItemProps = async (id) => {
 
 export {
   insertItemProps,
+  insertManyItemProps,
   updateItemProps,
   getAllItemProps,
   getItemPropsById,

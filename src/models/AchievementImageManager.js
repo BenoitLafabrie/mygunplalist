@@ -22,6 +22,21 @@ const insertAchievementImage = async ({ image_path, achievementId }) => {
   }
 };
 
+const insertManyAchievementImages = async (items) => {
+  try {
+    const result = await prisma.items.createMany({
+      data: items.map((item) => ({
+        image_path: item.image_path,
+        achievementId: item.achievementId,
+      })),
+    });
+    return { status: 201, data: result };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, data: "Internal Error" };
+  }
+};
+
 const getAllAchievementImages = async () => {
   try {
     const getAllAchievementImages = await prisma.achievementImage.findMany({
@@ -81,6 +96,7 @@ const updateAchievementImage = async (id, body) => {
 
 export {
   insertAchievementImage,
+  insertManyAchievementImages,
   updateAchievementImage,
   getAllAchievementImages,
   getAchievementImageById,

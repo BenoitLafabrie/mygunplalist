@@ -22,6 +22,21 @@ const insertFriend = async ({ friend_id, userId }) => {
   }
 };
 
+const insertManyFriends = async (items) => {
+  try {
+    const result = await prisma.items.createMany({
+      data: items.map((item) => ({
+        friend_id: item.friend_id,
+        userId: item.userId,
+      })),
+    });
+    return { status: 201, data: result };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, data: "Internal Error" };
+  }
+};
+
 const getAllFriends = async () => {
   try {
     const getAllFriends = await prisma.friend.findMany({
@@ -95,6 +110,7 @@ const deleteFriend = async (id) => {
 
 export {
   insertFriend,
+  insertManyFriends,
   updateFriend,
   getAllFriends,
   getFriendById,

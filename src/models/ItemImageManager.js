@@ -22,6 +22,21 @@ const insertItemImage = async ({ image_path, itemId }) => {
   }
 };
 
+const insertManyItemImages = async (items) => {
+  try {
+    const result = await prisma.items.createMany({
+      data: items.map((item) => ({
+        image_path: item.image_path,
+        itemId: item.itemId,
+      })),
+    });
+    return { status: 201, data: result };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, data: "Internal Error" };
+  }
+};
+
 const getAllItemImages = async () => {
   try {
     const getAllItemImages = await prisma.itemImage.findMany({
@@ -95,6 +110,7 @@ const deleteItemImage = async (id) => {
 
 export {
   insertItemImage,
+  insertManyItemImages,
   updateItemImage,
   getAllItemImages,
   getItemImageById,

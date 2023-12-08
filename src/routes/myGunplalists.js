@@ -3,7 +3,7 @@ import myGunplalistsControllers from "../controllers/MyGunplalistControllers.js"
 
 const router = express.Router();
 
-router.post("/", myGunplalistsControllers.createMyGunplalistController);
+router.post("/", myGunplalistsControllers.createMyGunplalistsController);
 router.get("/", myGunplalistsControllers.getAllMyGunplalistsController);
 router.get("/:id", myGunplalistsControllers.getOneMyGunplalistController);
 router.put("/:id", myGunplalistsControllers.updateMyGunplalistController);

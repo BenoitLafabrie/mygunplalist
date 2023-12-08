@@ -3,7 +3,7 @@ import friendsControllers from "../controllers/FriendControllers.js";
 
 const router = express.Router();
 
-router.post("/", friendsControllers.createFriendController);
+router.post("/", friendsControllers.createFriendsController);
 router.get("/", friendsControllers.getAllFriendsController);
 router.get("/:id", friendsControllers.getOneFriendController);
 router.put("/:id", friendsControllers.updateFriendController);

@@ -1,5 +1,6 @@
 import {
   insertMygunplalist,
+  insertManyGunplalists,
   updateMygunplalist,
   deleteMygunplalist,
   getAllMygunplalists,
@@ -13,6 +14,23 @@ const createMyGunplalistController = async (req, res) => {
     userId: req.body.userId,
   });
   res.status(status).send(data);
+};
+
+const createManyMyGunplalistsController = async (req, res) => {
+  const { status, data } = await insertManyGunplalists({
+    ...req.body,
+    itemId: req.payload.sub.id,
+    userId: req.body.userId,
+  });
+  res.status(status).send(data);
+};
+
+const createMyGunplalistsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyMyGunplalistsController(req, res, next);
+  } else {
+    return createMyGunplalistController(req, res, next);
+  }
 };
 
 const getAllMyGunplalistsController = async (req, res) => {
@@ -37,7 +55,7 @@ const deleteMyGunplalistController = async (req, res) => {
 };
 
 export default {
-  createMyGunplalistController,
+  createMyGunplalistsController,
   getAllMyGunplalistsController,
   getOneMyGunplalistController,
   updateMyGunplalistController,

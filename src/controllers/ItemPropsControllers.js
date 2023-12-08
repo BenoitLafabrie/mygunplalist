@@ -1,5 +1,6 @@
 import {
   insertItemProps,
+  insertManyItemProps,
   updateItemProps,
   getAllItemProps,
   getItemPropsById,
@@ -12,6 +13,22 @@ const createItemPropsController = async (req, res) => {
     itemId: req.payload.sub.id,
   });
   res.status(status).send(data);
+};
+
+const createManyItemPropsController = async (req, res) => {
+  const { status, data } = await insertManyItemProps({
+    ...req.body,
+    itemId: req.payload.sub.id,
+  });
+  res.status(status).send(data);
+};
+
+const createItemsPropsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyItemPropsController(req, res, next);
+  } else {
+    return createItemPropsController(req, res, next);
+  }
 };
 
 const getAllItemPropsController = async (req, res) => {
@@ -36,7 +53,7 @@ const deleteItemPropsController = async (req, res) => {
 };
 
 export default {
-  createItemPropsController,
+  createItemsPropsController,
   getAllItemPropsController,
   getOneItemPropsController,
   updateItemPropsController,

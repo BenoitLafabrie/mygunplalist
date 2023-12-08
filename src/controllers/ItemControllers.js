@@ -1,11 +1,28 @@
 import { PrismaClient } from "@prisma/client";
-import { insertItem, updateItem } from "../models/ItemManager.js";
+import {
+  insertItem,
+  insertManyItems,
+  updateItem,
+} from "../models/ItemManager.js";
 
 const prisma = new PrismaClient();
 
 const createItemController = async (req, res) => {
   const { status, data } = await insertItem(req.body);
   res.status(status).send(data);
+};
+
+const createManyItemsController = async (req, res) => {
+  const { status, data } = await insertManyItems(req.body);
+  res.status(status).send(data);
+};
+
+const createItemsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyItemsController(req, res, next);
+  } else {
+    return createItemController(req, res, next);
+  }
 };
 
 const updateItemController = async (req, res) => {
@@ -82,7 +99,7 @@ const deleteItemByIdController = async (req, res) => {
 };
 
 export default {
-  createItemController,
+  createItemsController,
   updateItemController,
   getAllItemsController,
   getOneItemByIdController,

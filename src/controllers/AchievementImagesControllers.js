@@ -1,5 +1,6 @@
 import {
   insertAchievementImage,
+  insertManyAchievementImages,
   updateAchievementImage,
   getAllAchievementImages,
   getAchievementImageById,
@@ -11,6 +12,19 @@ const createAchievementImageController = async (req, res) => {
     achievementId: req.payload.sub.id,
   });
   res.status(status).send(data);
+};
+
+const createManyAchievementImagesController = async (req, res) => {
+  const { status, data } = await insertManyAchievementImages(req.body);
+  res.status(status).send(data);
+};
+
+const createAchievementImagesController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyAchievementImagesController(req, res, next);
+  } else {
+    return createAchievementImageController(req, res, next);
+  }
 };
 
 const getAllAchievementImagesController = async (req, res) => {
@@ -33,7 +47,7 @@ const updateAchievementImageController = async (req, res) => {
 };
 
 export default {
-  createAchievementImageController,
+  createAchievementImagesController,
   getAllAchievementImagesController,
   getOneAchievementImageController,
   updateAchievementImageController,

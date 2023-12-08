@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import {
   insertAchievement,
+  insertManyAchievements,
   updateAchievement,
 } from "../models/AchievementManager.js";
 
@@ -9,6 +10,19 @@ const prisma = new PrismaClient();
 const createAchievementController = async (req, res) => {
   const { status, data } = await insertAchievement(req.body);
   res.status(status).send(data);
+};
+
+const createManyAchievementsController = async (req, res) => {
+  const { status, data } = await insertManyAchievements(req.body);
+  res.status(status).send(data);
+};
+
+const createAchievementsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyAchievementsController(req, res, next);
+  } else {
+    return createAchievementController(req, res, next);
+  }
 };
 
 const updateAchievementController = async (req, res) => {
@@ -79,7 +93,7 @@ const deleteAchievementByIdController = async (req, res) => {
 };
 
 export default {
-  createAchievementController,
+  createAchievementsController,
   updateAchievementController,
   getAllAchievementsController,
   getOneAchievementByIdController,

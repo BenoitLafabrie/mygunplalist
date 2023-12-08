@@ -3,7 +3,7 @@ import userImagesControllers from "../controllers/UserImageControllers.js";
 
 const router = express.Router();
 
-router.post("/", userImagesControllers.createUserImageController);
+router.post("/", userImagesControllers.createUserImagesController);
 router.get("/", userImagesControllers.getAllUserImagesController);
 router.get("/:id", userImagesControllers.getOneUserImageController);
 router.put("/:id", userImagesControllers.updateUserImageController);

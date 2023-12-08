@@ -1,5 +1,6 @@
 import {
   insertItemImage,
+  insertManyItemImages,
   updateItemImage,
   getAllItemImages,
   getItemImageById,
@@ -12,6 +13,22 @@ const createItemImageController = async (req, res) => {
     itemId: req.payload.sub.id,
   });
   res.status(status).send(data);
+};
+
+const createManyItemImagesController = async (req, res) => {
+  const { status, data } = await insertManyItemImages({
+    ...req.body,
+    itemId: req.payload.sub.id,
+  });
+  res.status(status).send(data);
+};
+
+const createItemImagesController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyItemImagesController(req, res, next);
+  } else {
+    return createItemImageController(req, res, next);
+  }
 };
 
 const getAllItemImagesController = async (req, res) => {
@@ -36,7 +53,7 @@ const deleteItemImageController = async (req, res) => {
 };
 
 export default {
-  createItemImageController,
+  createItemImagesController,
   getAllItemImagesController,
   getOneItemImageController,
   updateItemImageController,
