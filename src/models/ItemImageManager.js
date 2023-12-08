@@ -2,17 +2,17 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const insertItemImage = async ({ image_path, itemId }) => {
+const insertItemImage = async ({ image_path, item_id }) => {
   try {
-    const itemImage = await prisma.itemImage.create({
+    const itemImage = await prisma.items_images.create({
       data: {
         image_path,
-        itemId,
+        item_id,
       },
       select: {
         id: true,
         image_path: true,
-        itemId: true,
+        item_id: true,
       },
     });
     return { status: 201, data: itemImage };
@@ -24,10 +24,10 @@ const insertItemImage = async ({ image_path, itemId }) => {
 
 const insertManyItemImages = async (items) => {
   try {
-    const result = await prisma.items.createMany({
+    const result = await prisma.items_images.createMany({
       data: items.map((item) => ({
         image_path: item.image_path,
-        itemId: item.itemId,
+        item_id: item.item_id,
       })),
     });
     return { status: 201, data: result };
@@ -39,11 +39,11 @@ const insertManyItemImages = async (items) => {
 
 const getAllItemImages = async () => {
   try {
-    const getAllItemImages = await prisma.itemImage.findMany({
+    const getAllItemImages = await prisma.items_images.findMany({
       select: {
         id: true,
         image_path: true,
-        itemId: true,
+        item_id: true,
       },
     });
     return { status: 200, data: getAllItemImages };
@@ -55,7 +55,7 @@ const getAllItemImages = async () => {
 
 const getItemImageById = async (id) => {
   try {
-    const getItemImage = await prisma.getItemImage.findUnique({
+    const getItemImage = await prisma.items_images.findUnique({
       where: {
         id: parseInt(id),
       },
@@ -71,20 +71,20 @@ const getItemImageById = async (id) => {
 };
 
 const updateItemImage = async (id, body) => {
-  const { image_path, itemId } = body;
+  const { image_path, item_id } = body;
   try {
-    const itemImage = await prisma.ItemImage.update({
+    const itemImage = await prisma.items_images.update({
       where: {
         id: parseInt(id),
       },
       data: {
         image_path: image_path,
-        itemId: itemId,
+        item_id: item_id,
       },
       select: {
         id: true,
         image_path: true,
-        itemId: true,
+        item_id: true,
       },
     });
     return { status: 200, data: itemImage };
@@ -96,7 +96,7 @@ const updateItemImage = async (id, body) => {
 
 const deleteItemImage = async (id) => {
   try {
-    const itemImage = await prisma.ItemImage.delete({
+    const itemImage = await prisma.items_images.delete({
       where: {
         id: parseInt(id),
       },
