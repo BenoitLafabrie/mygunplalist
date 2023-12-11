@@ -2,21 +2,21 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const insertItemProps = async ({ grade, scale, series, itemId }) => {
+const insertItemProps = async ({ grade, scale, series, item_id }) => {
   try {
-    const itemProps = await prisma.itemProps.create({
+    const itemProps = await prisma.items_props.create({
       data: {
         grade,
         scale,
         series,
-        itemId,
+        item_id,
       },
       select: {
-        id: true,
+        item_props_id: true,
         grade: true,
         scale: true,
         series: true,
-        itemId: true,
+        item_id: true,
       },
     });
     return { status: 201, data: itemProps };
@@ -28,12 +28,12 @@ const insertItemProps = async ({ grade, scale, series, itemId }) => {
 
 const insertManyItemProps = async (items) => {
   try {
-    const result = await prisma.items.createMany({
+    const result = await prisma.items_props.createMany({
       data: items.map((item) => ({
         grade: item.grade,
         scale: item.scale,
         series: item.series,
-        itemId: item.itemId,
+        item_id: item.item_id,
       })),
     });
     return { status: 201, data: result };
@@ -45,13 +45,13 @@ const insertManyItemProps = async (items) => {
 
 const getAllItemProps = async () => {
   try {
-    const getAllItemProps = await prisma.itemProps.findMany({
+    const getAllItemProps = await prisma.items_props.findMany({
       select: {
-        id: true,
+        item_props_id: true,
         grade: true,
         scale: true,
         series: true,
-        itemId: true,
+        item_id: true,
       },
     });
     return { status: 200, data: getAllItemProps };
@@ -63,9 +63,9 @@ const getAllItemProps = async () => {
 
 const getItemPropsById = async (id) => {
   try {
-    const getItemProps = await prisma.getItemProps.findUnique({
+    const getItemProps = await prisma.items_props.findUnique({
       where: {
-        id: parseInt(id),
+        item_props_id: parseInt(id),
       },
     });
     if (!getItemProps) {
@@ -79,24 +79,24 @@ const getItemPropsById = async (id) => {
 };
 
 const updateItemProps = async (id, body) => {
-  const { grade, scale, series, itemId } = body;
+  const { grade, scale, series, item_id } = body;
   try {
-    const itemProps = await prisma.ItemProps.update({
+    const itemProps = await prisma.items_props.update({
       where: {
-        id: parseInt(id),
+        item_props_id: parseInt(id),
       },
       data: {
         grade: grade,
         scale: scale,
         series: series,
-        itemId: itemId,
+        item_id: item_id,
       },
       select: {
-        id: true,
+        item_props_id: true,
         grade: true,
         scale: true,
         series: true,
-        itemId: true,
+        item_id: true,
       },
     });
     return { status: 200, data: itemProps };
@@ -108,9 +108,9 @@ const updateItemProps = async (id, body) => {
 
 const deleteItemProps = async (id) => {
   try {
-    const itemProps = await prisma.ItemProps.delete({
+    const itemProps = await prisma.items_props.delete({
       where: {
-        id: parseInt(id),
+        item_props_id: parseInt(id),
       },
     });
     return { status: 200, data: itemProps };

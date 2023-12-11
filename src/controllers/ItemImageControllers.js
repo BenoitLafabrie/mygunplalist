@@ -29,9 +29,9 @@ const createItemImagesController = async (req, res, next) => {
 
 const getAllItemImagesController = async (req, res) => {
   try {
-    const items = await prisma.items.findMany({
+    const items = await prisma.items_images.findMany({
       select: {
-        id: true,
+        item_image_id: true,
         image_path: true,
         item_id: true,
       },

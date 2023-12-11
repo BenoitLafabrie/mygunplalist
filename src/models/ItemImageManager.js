@@ -10,7 +10,7 @@ const insertItemImage = async ({ image_path, item_id }) => {
         item_id,
       },
       select: {
-        id: true,
+        item_image_id: true,
         image_path: true,
         item_id: true,
       },
@@ -41,7 +41,7 @@ const getAllItemImages = async () => {
   try {
     const getAllItemImages = await prisma.items_images.findMany({
       select: {
-        id: true,
+        item_image_id: true,
         image_path: true,
         item_id: true,
       },
@@ -57,7 +57,7 @@ const getItemImageById = async (id) => {
   try {
     const getItemImage = await prisma.items_images.findUnique({
       where: {
-        id: parseInt(id),
+        item_image_id: parseInt(id),
       },
     });
     if (!getItemImage) {
@@ -75,14 +75,14 @@ const updateItemImage = async (id, body) => {
   try {
     const itemImage = await prisma.items_images.update({
       where: {
-        id: parseInt(id),
+        item_image_id: parseInt(id),
       },
       data: {
         image_path: image_path,
         item_id: item_id,
       },
       select: {
-        id: true,
+        item_image_id: true,
         image_path: true,
         item_id: true,
       },
@@ -98,7 +98,7 @@ const deleteItemImage = async (id) => {
   try {
     const itemImage = await prisma.items_images.delete({
       where: {
-        id: parseInt(id),
+        item_image_id: parseInt(id),
       },
     });
     return { status: 200, data: itemImage };
