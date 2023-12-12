@@ -5,12 +5,8 @@ import Header_Icon from "../assets/header/Header_Icon.svg";
 
 export default function Header() {
   return (
-    <ChakraLink
-      as={ReactRouterLink}
-      to="/home"
-      _hover={{ textDecoration: "none" }}
-    >
-      <Box w="100%" h="108px" position="sticky" backgroundImage={Header_Icon} />
+    <ChakraLink as={ReactRouterLink} to="/home" w="100vw">
+      <Box h="108px" position="sticky" backgroundImage={Header_Icon} />
     </ChakraLink>
   );
 }

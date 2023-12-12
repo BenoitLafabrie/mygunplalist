@@ -9,12 +9,14 @@ export default function Root() {
       style={{
         height: "100vh",
         width: "100vw",
-        minHeight: "calc(100vh - 7.5vh)",
         overflow: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Header />
-      <Outlet />
+      <Outlet style={{ justifyContent: "center" }} />
       <Footer />
       <BottomNavBar />
     </div>
