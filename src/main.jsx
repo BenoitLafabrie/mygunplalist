@@ -15,6 +15,7 @@ import theme from "./theme.js";
 import "@fontsource/rubik";
 import ErrorPage from "./components/ErrorPage.jsx";
 import AddKit from "./pages/AddKit.jsx";
+import KitPage from "./pages/KitPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,8 @@ const router = createBrowserRouter([
       { path: "/wishlist", element: <Wishlist /> },
       { path: "/add_kit", element: <AddKit /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/kits", element: <Profile /> },
+      { path: "/kits/:id", element: <KitPage /> },
     ],
   },
   {

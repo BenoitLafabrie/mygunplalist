@@ -16,6 +16,8 @@ import {
   Select,
   Stack,
 } from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon, Search2Icon } from "@chakra-ui/icons";
 
 export default function Search() {
@@ -27,21 +29,31 @@ export default function Search() {
 
   // Fetch the items when the component mounts
   useEffect(() => {
-    // Fetch all items
     fetch("http://localhost:3000/kits")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error fetching kits");
+        }
+        return response.json();
+      })
       .then((items) => {
-        // Fetch all images
-        fetch("http://localhost:3000/kits-images/")
-          .then((response) => response.json())
+        fetch("http://localhost:3000/kits-images")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error fetching kit images");
+            }
+            return response.json();
+          })
           .then((images) => {
-            // Match images with their corresponding items
             const itemsWithImages = items.map((item) => ({
               ...item,
               images: images.filter((image) => image.item_id === item.item_id),
             }));
             setItems(itemsWithImages);
           });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }, []);
 
@@ -93,22 +105,24 @@ export default function Search() {
       <Stack spacing={8}>
         {currentItems.map((item) => (
           <Card key={item.item_id} align="center">
-            <CardBody>
-              {/* Render the first image of the item if it exists */}
-              {item.images && item.images.length > 0 ? (
-                <Image
-                  src={item.images[0].image_path}
-                  alt={item.name}
-                  borderRadius="lg"
-                />
-              ) : (
-                <p>No images found for this item.</p>
-              )}
-              <Heading size="xs" pt="2">
-                {item.name}
-              </Heading>
-              {/* Render other item details... */}
-            </CardBody>
+            <ChakraLink as={ReactRouterLink} to={`/kits/${item.item_id}`}>
+              <CardBody>
+                {/* Render the first image of the item if it exists */}
+                {item.images && item.images.length > 0 ? (
+                  <Image
+                    src={item.images[0].image_path}
+                    alt={item.name}
+                    borderRadius="lg"
+                  />
+                ) : (
+                  <p>No images found for this item.</p>
+                )}
+                <Heading size="xs" pt="2">
+                  {item.name}
+                </Heading>
+                {/* Render other item details... */}
+              </CardBody>
+            </ChakraLink>
             <Divider color="red" />
             <CardFooter justifyContent="center">
               <ButtonGroup spacing={12}>
