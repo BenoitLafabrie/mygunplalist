@@ -16,6 +16,8 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 export default function KitPage() {
   const [item, setItem] = useState(null);
@@ -158,12 +160,17 @@ export default function KitPage() {
           justifyContent="space-evenly"
           pb="1.25em"
         >
-          <Button variant="solid" colorScheme="red">
+          <Button variant="ghost" colorScheme="red">
             Add
           </Button>
           <Button variant="outline" colorScheme="red">
             Wishlist
           </Button>
+          <ChakraLink as={ReactRouterLink} to={`${item.ROG_Url}`}>
+            <Button variant="solid" colorScheme="red">
+              Buy
+            </Button>
+          </ChakraLink>
         </Stack>
         <Stack display="flex" flexDirection="column" gap={0}>
           <Text>Grade: {item.props.grade}</Text>
