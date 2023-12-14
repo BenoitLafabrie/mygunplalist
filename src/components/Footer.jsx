@@ -16,10 +16,10 @@ import YoutubeIcon from "../assets/icons/YoutubeIcon.svg";
 export default function Footer() {
   return (
     <Box
-      display="grid"
+      display={{ sm: "grid", md: "none" }}
       w="100%"
-      h="28%"
-      position="static"
+      h={{ sm: "28%", md: "14%" }}
+      position={{ sm: "static", md: "relative" }}
       mb="7.5vh"
       alignItems="center"
       backgroundImage={Footer_Background}

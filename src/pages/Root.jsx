@@ -7,7 +7,7 @@ export default function Root() {
   return (
     <div
       style={{
-        height: "100vh",
+        minHeight: "100vh",
         width: "100vw",
         overflow: "auto",
         display: "flex",

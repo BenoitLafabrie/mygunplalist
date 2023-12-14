@@ -160,7 +160,7 @@ export default function KitPage() {
           justifyContent="space-evenly"
           pb="1.25em"
         >
-          <Button variant="ghost" colorScheme="red">
+          <Button variant="outline" colorScheme="red">
             Add
           </Button>
           <Button variant="outline" colorScheme="red">
