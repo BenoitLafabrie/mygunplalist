@@ -2,6 +2,7 @@
 import { Box, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
+import { useBreakpointValue } from "@chakra-ui/react";
 import Footer_Background from "../assets/Footer_Background.svg";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import Tagline from "../assets/header/Tagline.svg";
@@ -14,18 +15,25 @@ import TwitchIcon from "../assets/icons/TwitchIcon.svg";
 import YoutubeIcon from "../assets/icons/YoutubeIcon.svg";
 
 export default function Footer() {
+  const bgImage = useBreakpointValue({ sm: Footer_Background, md: "none" });
+
   return (
     <Box
-      display={{ sm: "grid", md: "none" }}
+      display={{ sm: "grid", md: "flex" }}
       w="100%"
       h={{ sm: "28%", md: "14%" }}
       position={{ sm: "static", md: "relative" }}
       mb="7.5vh"
       alignItems="center"
-      backgroundImage={Footer_Background}
+      backgroundImage={bgImage}
       zIndex={2}
     >
-      <Box w="80%" display="flex" justifySelf="center" mb="auto">
+      <Box
+        w={{ sm: "80%", md: "100%" }}
+        display="flex"
+        justifySelf="center"
+        mb="auto"
+      >
         <Text fontSize="60%" align="center">
           Les Logos, produits et noms de sociétés mentionnnés sont la propriété
           de leurs auteurs respectifs. © MyGunplaList 2024

@@ -12,13 +12,19 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   Button,
   Select,
   Stack,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
-import { ArrowBackIcon, ArrowForwardIcon, Search2Icon } from "@chakra-ui/icons";
+import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
+  CloseIcon,
+  Search2Icon,
+} from "@chakra-ui/icons";
 
 export default function Search() {
   const [items, setItems] = useState([]);
@@ -32,7 +38,7 @@ export default function Search() {
     fetch("http://localhost:3000/kits")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error fetching kits");
+          throw new Error("Erreur lors de la récupération des kits");
         }
         return response.json();
       })
@@ -40,7 +46,7 @@ export default function Search() {
         fetch("http://localhost:3000/kits-images")
           .then((response) => {
             if (!response.ok) {
-              throw new Error("Error fetching kit images");
+              throw new Error("Erreur lors de la récupération des images");
             }
             return response.json();
           })
@@ -53,7 +59,7 @@ export default function Search() {
           });
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Erreur:", error);
       });
   }, []);
 
@@ -89,17 +95,28 @@ export default function Search() {
             <Search2Icon color="gray.300" />
           </InputLeftElement>
           <Input
-            placeholder="Find your kit..."
+            placeholder="Trouvez votre gunpla"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          <InputRightElement>
+            {search && (
+              <IconButton
+                onClick={() => setSearch("")}
+                variant="ghost"
+                icon={<CloseIcon color="gray.500" />}
+                _hover={{}}
+                _active={{}}
+              />
+            )}
+          </InputRightElement>
         </InputGroup>
         <Select
           value={sortDirection}
           onChange={(e) => setSortDirection(e.target.value)}
         >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+          <option value="asc">Croissant</option>
+          <option value="desc">Décroissant</option>
         </Select>
       </Stack>
       <Stack spacing={8}>
@@ -115,7 +132,7 @@ export default function Search() {
                     borderRadius="lg"
                   />
                 ) : (
-                  <p>No images found for this item.</p>
+                  <p>Aucune image pour ce gunpla</p>
                 )}
                 <Heading size="xs" pt="2">
                   {item.name}
@@ -126,7 +143,7 @@ export default function Search() {
             <CardFooter justifyContent="center">
               <ButtonGroup spacing={12}>
                 <Button variant="solid" colorScheme="red">
-                  Add
+                  Ajouter
                 </Button>
                 <Button variant="outline" colorScheme="red">
                   Wishlist
@@ -139,13 +156,23 @@ export default function Search() {
       <Stack alignItems="center">
         <ButtonGroup py={4}>
           {currentPage > 1 && (
-            <IconButton
-              onClick={handleClickPrev}
-              disabled={currentPage === 1}
-              variant="outline"
-              colorScheme="red"
-              icon={<ArrowBackIcon />}
-            />
+            <>
+              <Button
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+                variant="outline"
+                color="#314095"
+              >
+                Première Page
+              </Button>
+              <IconButton
+                onClick={handleClickPrev}
+                disabled={currentPage === 1}
+                variant="outline"
+                color="#314095"
+                icon={<ArrowBackIcon />}
+              />
+            </>
           )}
           {pageNumbers
             .slice(currentPage - 1, currentPage + (currentPage === 1 ? 2 : 1))
@@ -155,19 +182,29 @@ export default function Search() {
                 onClick={() => setCurrentPage(number)}
                 disabled={currentPage === number}
                 variant="outline"
-                colorScheme="red"
+                color="#314095"
               >
                 {number}
               </Button>
             ))}
           {currentPage < Math.ceil(filteredItems.length / itemsPerPage) && (
-            <IconButton
-              onClick={handleClickNext}
-              disabled={currentPage === totalPages}
-              variant="outline"
-              colorScheme="red"
-              icon={<ArrowForwardIcon />}
-            />
+            <>
+              <IconButton
+                onClick={handleClickNext}
+                disabled={currentPage === totalPages}
+                variant="outline"
+                color="#314095"
+                icon={<ArrowForwardIcon />}
+              />
+              <Button
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+                variant="outline"
+                color="#314095"
+              >
+                Dernière Page
+              </Button>
+            </>
           )}
         </ButtonGroup>
       </Stack>

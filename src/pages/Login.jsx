@@ -34,7 +34,7 @@ export default function Login() {
       >
         <Image src={ButtonIconLogo} boxSize="18px" />
         <Text align="center" textColor="#F00D32" fontSize="lg">
-          WELCOME BACK, PLEASE LOG IN
+          DE RETOUR? CONNECTEZ-VOUS
         </Text>
       </Stack>
       <VStack h="79vh" w="80%" mt="4em" mx="auto" spacing={8}>
@@ -47,7 +47,7 @@ export default function Login() {
           <Input type="password" />
         </FormControl>
         <Button colorScheme="red" variant="outline" mt="1em">
-          LOG IN
+          CONNEXION
         </Button>
       </VStack>
       <Footer />

@@ -34,36 +34,36 @@ export default function Register() {
       >
         <Image src={ButtonIconLogo} boxSize="18px" />
         <Text align="center" textColor="#F00D32" fontSize="lg">
-          PLEASE CREATE YOUR ACCOUNT
+          CRÉER VOTRE COMPTE
         </Text>
       </Stack>
       <VStack h="79vh" w="80%" mt="2em" mx="auto" spacing={3}>
         <FormControl id="firstname" isRequired borderColor="#2894E2">
-          <FormLabel textColor="#2894E2">Firstname</FormLabel>
+          <FormLabel textColor="#2894E2">Prénom</FormLabel>
           <Input type="text" />
         </FormControl>
         <FormControl id="lastname" isRequired borderColor="#314095">
-          <FormLabel textColor="#314095">Lastname</FormLabel>
+          <FormLabel textColor="#314095">Nom</FormLabel>
           <Input type="text" />
         </FormControl>
         <FormControl id="username" isRequired>
-          <FormLabel>Username</FormLabel>
+          <FormLabel>Pseudo</FormLabel>
           <Input type="text" />
         </FormControl>
         <FormControl id="email" isRequired>
-          <FormLabel>Mail Address</FormLabel>
+          <FormLabel>E-Mail</FormLabel>
           <Input type="email" />
         </FormControl>
         <FormControl id="password" isRequired>
-          <FormLabel>Password</FormLabel>
+          <FormLabel>Mot de passe</FormLabel>
           <Input type="password" />
         </FormControl>
         <FormControl id="birthdate" isRequired>
-          <FormLabel>Birthdate</FormLabel>
+          <FormLabel>Date de naissance</FormLabel>
           <Input type="date" />
         </FormControl>
         <Button colorScheme="red" variant="outline" mt="1em">
-          REGISTER
+          S'ENREGISTRER
         </Button>
       </VStack>
       <Footer />

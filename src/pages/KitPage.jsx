@@ -49,7 +49,7 @@ export default function KitPage() {
     fetch(`http://localhost:3000/kits/${id}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error fetching kit");
+          throw new Error("Erreur lors de la récupération du kit");
         }
         return response.json();
       })
@@ -57,7 +57,9 @@ export default function KitPage() {
         fetch("http://localhost:3000/kits-images")
           .then((imagesResponse) => {
             if (!imagesResponse.ok) {
-              throw new Error("Error fetching kit images");
+              throw new Error(
+                "Erreur lors de la récupération des images du kit"
+              );
             }
             return imagesResponse.json();
           })
@@ -68,7 +70,9 @@ export default function KitPage() {
             fetch(`http://localhost:3000/kits-props/${item.item_id}`)
               .then((propsResponse) => {
                 if (!propsResponse.ok) {
-                  throw new Error("Error fetching kit properties");
+                  throw new Error(
+                    "Erreur lors de la récupération des propriétés du kit"
+                  );
                 }
                 return propsResponse.json();
               })
@@ -82,12 +86,12 @@ export default function KitPage() {
           });
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Erreur:", error);
       });
   }, [id]);
 
   if (!item) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
   }
 
   return (
@@ -161,21 +165,21 @@ export default function KitPage() {
           pb="1.25em"
         >
           <Button variant="outline" colorScheme="red">
-            Add
+            Ajouter
           </Button>
           <Button variant="outline" colorScheme="red">
             Wishlist
           </Button>
           <ChakraLink as={ReactRouterLink} to={`${item.ROG_Url}`} isExternal>
             <Button variant="solid" colorScheme="red">
-              Buy
+              Acheter
             </Button>
           </ChakraLink>
         </Stack>
         <Stack display="flex" flexDirection="column" gap={0}>
           <Text>Grade: {item.props.grade}</Text>
-          <Text>Scale: {item.props.scale}</Text>
-          <Text>Series: {item.props.series}</Text>
+          <Text>Échelle: {item.props.scale}</Text>
+          <Text>Série: {item.props.series}</Text>
         </Stack>
       </Box>
       <Box pb="2em">

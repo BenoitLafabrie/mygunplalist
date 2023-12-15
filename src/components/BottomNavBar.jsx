@@ -17,7 +17,7 @@ export default function BottomNavBar() {
       mb={0}
       bottom={0}
       boxShadow="0 0 2px #071D26"
-      display={{ sm: "none" }}
+      display={{ md: "none" }}
     >
       <List>
         <Box
