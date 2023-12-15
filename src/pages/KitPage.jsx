@@ -166,7 +166,7 @@ export default function KitPage() {
           <Button variant="outline" colorScheme="red">
             Wishlist
           </Button>
-          <ChakraLink as={ReactRouterLink} to={`${item.ROG_Url}`}>
+          <ChakraLink as={ReactRouterLink} to={`${item.ROG_Url}`} isExternal>
             <Button variant="solid" colorScheme="red">
               Buy
             </Button>

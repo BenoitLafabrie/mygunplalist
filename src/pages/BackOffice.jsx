@@ -249,7 +249,11 @@ export default function BackOffice() {
                         : item.description}
                     </Td>
                     <Td>
-                      <ChakraLink as={ReactRouterLink} to={`${item.ROG_Url}`}>
+                      <ChakraLink
+                        as={ReactRouterLink}
+                        to={`${item.ROG_Url}`}
+                        isExternal
+                      >
                         {item.ROG_Url ? "Let's Go!!!" : "No Link"}
                       </ChakraLink>
                     </Td>
