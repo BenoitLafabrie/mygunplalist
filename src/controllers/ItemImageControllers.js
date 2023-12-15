@@ -1,23 +1,46 @@
+import { PrismaClient } from "@prisma/client";
 import {
   insertItemImage,
+  insertManyItemImages,
   updateItemImage,
-  getAllItemImages,
   getItemImageById,
   deleteItemImage,
 } from "../models/ItemImageManager.js";
 
+const prisma = new PrismaClient();
+
 const createItemImageController = async (req, res) => {
-  const { status, data } = await insertItemImage({
-    ...req.body,
-    itemId: req.payload.sub.id,
-  });
+  const { status, data } = await insertItemImage(req.body);
   res.status(status).send(data);
 };
 
-const getAllItemImagesController = async (req, res) => {
-  const { id } = req.payload.sub;
-  const { status, data } = await getAllItemImages(parseInt(id));
+const createManyItemImagesController = async (req, res) => {
+  const { status, data } = await insertManyItemImages(req.body);
   res.status(status).send(data);
+};
+
+const createItemImagesController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyItemImagesController(req, res, next);
+  } else {
+    return createItemImageController(req, res, next);
+  }
+};
+
+const getAllItemImagesController = async (req, res) => {
+  try {
+    const items = await prisma.items_images.findMany({
+      select: {
+        item_image_id: true,
+        image_path: true,
+        item_id: true,
+      },
+    });
+    res.status(200).send(items);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
 };
 
 const getOneItemImageController = async (req, res) => {
@@ -36,7 +59,7 @@ const deleteItemImageController = async (req, res) => {
 };
 
 export default {
-  createItemImageController,
+  createItemImagesController,
   getAllItemImagesController,
   getOneItemImageController,
   updateItemImageController,

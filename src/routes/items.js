@@ -3,7 +3,7 @@ import itemControllers from "../controllers/ItemControllers.js";
 
 const router = express.Router();
 
-router.post("/", itemControllers.createItemController);
+router.post("/", itemControllers.createItemsController);
 router.get("/", itemControllers.getAllItemsController);
 router.get("/:id", itemControllers.getOneItemByIdController);
 router.put("/:id", itemControllers.updateItemController);

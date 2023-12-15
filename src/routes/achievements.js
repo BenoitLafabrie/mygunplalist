@@ -3,7 +3,7 @@ import achievementControllers from "../controllers/AchievementControllers.js";
 
 const router = express.Router();
 
-router.post("/", achievementControllers.createAchievementController);
+router.post("/", achievementControllers.createAchievementsController);
 router.get("/", achievementControllers.getAllAchievementsController);
 router.get("/:id", achievementControllers.getOneAchievementByIdController);
 router.put("/:id", achievementControllers.updateAchievementController);

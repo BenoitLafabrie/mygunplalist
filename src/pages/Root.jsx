@@ -7,14 +7,16 @@ export default function Root() {
   return (
     <div
       style={{
-        height: "100vh",
+        minHeight: "100vh",
         width: "100vw",
-        minHeight: "calc(100vh - 7.5vh)",
         overflow: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Header />
-      <Outlet />
+      <Outlet style={{ justifyContent: "center" }} />
       <Footer />
       <BottomNavBar />
     </div>

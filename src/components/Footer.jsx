@@ -16,10 +16,10 @@ import YoutubeIcon from "../assets/icons/YoutubeIcon.svg";
 export default function Footer() {
   return (
     <Box
-      display="grid"
+      display={{ sm: "grid", md: "none" }}
       w="100%"
-      h="28%"
-      position="static"
+      h={{ sm: "28%", md: "14%" }}
+      position={{ sm: "static", md: "relative" }}
       mb="7.5vh"
       alignItems="center"
       backgroundImage={Footer_Background}
@@ -36,10 +36,17 @@ export default function Footer() {
         justifyContent="center"
         alignItems="center"
         h="40%"
-        mr="-0.7em"
+        ml="-2em"
       >
         <Image src={MyGunplaListLogo} w="20%" h="100%" />
-        <Box display="flex" flexDirection="column" h="35px" w="50%" mt="1em">
+        <Box
+          display="flex"
+          flexDirection="column"
+          h="35px"
+          w="50%"
+          ml="-0.5em"
+          mt="1em"
+        >
           <Image src={BrandLogo} pb="0.25em" />
           <Image src={Tagline} />
         </Box>

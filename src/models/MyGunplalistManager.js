@@ -24,6 +24,22 @@ const insertMygunplalist = async ({ barcode, itemId, userId }) => {
   }
 };
 
+const insertManyGunplalists = async (items) => {
+  try {
+    const result = await prisma.items.createMany({
+      data: items.map((item) => ({
+        barcode: item.barcode,
+        itemId: item.itemId,
+        userId: item.userId,
+      })),
+    });
+    return { status: 201, data: result };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, data: "Internal Error" };
+  }
+};
+
 const getAllMygunplalists = async () => {
   try {
     const getAllMygunplalists = await prisma.mygunplalist.findMany({
@@ -100,6 +116,7 @@ const deleteMygunplalist = async (id) => {
 
 export {
   insertMygunplalist,
+  insertManyGunplalists,
   updateMygunplalist,
   deleteMygunplalist,
   getAllMygunplalists,

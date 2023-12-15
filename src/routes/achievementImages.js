@@ -3,7 +3,10 @@ import achievementImagesControllers from "../controllers/AchievementImagesContro
 
 const router = express.Router();
 
-router.post("/", achievementImagesControllers.createAchievementImageController);
+router.post(
+  "/",
+  achievementImagesControllers.createAchievementImagesController
+);
 router.get("/", achievementImagesControllers.getAllAchievementImagesController);
 router.get(
   "/:id",

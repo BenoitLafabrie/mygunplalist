@@ -1,5 +1,6 @@
 import {
   insertFriend,
+  insertManyFriends,
   updateFriend,
   getAllFriends,
   getFriendById,
@@ -12,6 +13,22 @@ const createFriendController = async (req, res) => {
     userId: req.payload.sub.id,
   });
   res.status(status).send(data);
+};
+
+const createManyFriendsController = async (req, res) => {
+  const { status, data } = await insertManyFriends({
+    ...req.body,
+    userId: req.payload.sub.id,
+  });
+  res.status(status).send(data);
+};
+
+const createFriendsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyFriendsController(req, res, next);
+  } else {
+    return createFriendController(req, res, next);
+  }
 };
 
 const getAllFriendsController = async (req, res) => {
@@ -36,7 +53,7 @@ const deleteFriendController = async (req, res) => {
 };
 
 export default {
-  createFriendController,
+  createFriendsController,
   getAllFriendsController,
   getOneFriendController,
   updateFriendController,

@@ -1,23 +1,49 @@
+import { PrismaClient } from "@prisma/client";
+
 import {
   insertItemProps,
+  insertManyItemProps,
   updateItemProps,
-  getAllItemProps,
   getItemPropsById,
   deleteItemProps,
 } from "../models/ItemPropsManager.js";
 
+const prisma = new PrismaClient();
+
 const createItemPropsController = async (req, res) => {
-  const { status, data } = await insertItemProps({
-    ...req.body,
-    itemId: req.payload.sub.id,
-  });
+  const { status, data } = await insertItemProps(req.body);
   res.status(status).send(data);
 };
 
-const getAllItemPropsController = async (req, res) => {
-  const { id } = req.payload.sub;
-  const { status, data } = await getAllItemProps(parseInt(id));
+const createManyItemPropsController = async (req, res) => {
+  const { status, data } = await insertManyItemProps(req.body);
   res.status(status).send(data);
+};
+
+const createItemsPropsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyItemPropsController(req, res, next);
+  } else {
+    return createItemPropsController(req, res, next);
+  }
+};
+
+const getAllItemPropsController = async (req, res) => {
+  try {
+    const items = await prisma.items_props.findMany({
+      select: {
+        item_props_id: true,
+        grade: true,
+        scale: true,
+        series: true,
+        item_id: true,
+      },
+    });
+    res.status(200).send(items);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
 };
 
 const getOneItemPropsController = async (req, res) => {
@@ -36,7 +62,7 @@ const deleteItemPropsController = async (req, res) => {
 };
 
 export default {
-  createItemPropsController,
+  createItemsPropsController,
   getAllItemPropsController,
   getOneItemPropsController,
   updateItemPropsController,

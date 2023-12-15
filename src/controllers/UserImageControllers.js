@@ -1,5 +1,6 @@
 import {
   insertUserImage,
+  insertManyUserImages,
   updateUserImage,
   getAllUserImages,
   getUserImageById,
@@ -12,6 +13,22 @@ const createUserImageController = async (req, res) => {
     userId: req.payload.sub.id,
   });
   res.status(status).send(data);
+};
+
+const createManyUserImagesController = async (req, res) => {
+  const { status, data } = await insertManyUserImages({
+    ...req.body,
+    userId: req.payload.sub.id,
+  });
+  res.status(status).send(data);
+};
+
+const createUserImagesController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyUserImagesController(req, res, next);
+  } else {
+    return createUserImageController(req, res, next);
+  }
 };
 
 const getAllUserImagesController = async (req, res) => {
@@ -36,7 +53,7 @@ const deleteUserImageController = async (req, res) => {
 };
 
 export default {
-  createUserImageController,
+  createUserImagesController,
   getAllUserImagesController,
   getOneUserImageController,
   updateUserImageController,

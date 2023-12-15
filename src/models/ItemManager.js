@@ -34,32 +34,18 @@ const insertItem = async ({
   }
 };
 
-const insertManyItems = async ({
-  name,
-  release_date,
-  barcode,
-  description,
-  ROG_Url,
-}) => {
+const insertManyItems = async (items) => {
   try {
-    const items = await prisma.items.createMany({
-      data: {
-        name,
-        release_date,
-        barcode,
-        description,
-        ROG_Url,
-      },
-      select: {
-        item_id: true,
-        name: true,
-        release_date: true,
-        barcode: true,
-        description: true,
-        ROG_Url: true,
-      },
+    const result = await prisma.items.createMany({
+      data: items.map((item) => ({
+        name: item.name,
+        release_date: item.release_date,
+        barcode: item.barcode,
+        description: item.description,
+        ROG_Url: item.ROG_Url,
+      })),
     });
-    return { status: 201, data: items };
+    return { status: 201, data: result };
   } catch (error) {
     console.error(error);
     return { status: 500, data: "Internal Error" };

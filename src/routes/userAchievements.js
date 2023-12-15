@@ -3,7 +3,7 @@ import userAchievementsControllers from "../controllers/UserAchievementControlle
 
 const router = express.Router();
 
-router.post("/", userAchievementsControllers.createUserAchievementController);
+router.post("/", userAchievementsControllers.createUserAchievementsController);
 router.get("/", userAchievementsControllers.getAllUserAchievementsController);
 router.get("/:id", userAchievementsControllers.getOneUserAchievementController);
 router.put("/:id", userAchievementsControllers.updateUserAchievementController);

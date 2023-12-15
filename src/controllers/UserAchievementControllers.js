@@ -1,5 +1,6 @@
 import {
   insertUserAchievement,
+  insertManyUserAchievements,
   updateUserAchievement,
   getAllUserAchievements,
   getUserAchievementById,
@@ -12,6 +13,22 @@ const createUserAchievementController = async (req, res) => {
     userId: req.payload.sub.id,
   });
   res.status(status).send(data);
+};
+
+const createManyUserAchievementsController = async (req, res) => {
+  const { status, data } = await insertManyUserAchievements({
+    ...req.body,
+    userId: req.payload.sub.id,
+  });
+  res.status(status).send(data);
+};
+
+const createUserAchievementsController = async (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    return createManyUserAchievementsController(req, res, next);
+  } else {
+    return createUserAchievementController(req, res, next);
+  }
 };
 
 const getAllUserAchievementsController = async (req, res) => {
@@ -36,7 +53,7 @@ const deleteUserAchievementController = async (req, res) => {
 };
 
 export default {
-  createUserAchievementController,
+  createUserAchievementsController,
   getAllUserAchievementsController,
   getOneUserAchievementController,
   updateUserAchievementController,
