@@ -120,7 +120,6 @@ export default function Search() {
                 <Heading size="xs" pt="2">
                   {item.name}
                 </Heading>
-                {/* Render other item details... */}
               </CardBody>
             </ChakraLink>
             <Divider color="red" />
