@@ -166,9 +166,9 @@ export default function BackOffice() {
                   {sortField === "name" &&
                     sortDirection !== "none" &&
                     (sortDirection === "asc" ? (
-                      <ChevronUpIcon />
-                    ) : (
                       <ChevronDownIcon />
+                    ) : (
+                      <ChevronUpIcon />
                     ))}
                 </Th>
                 <Th>Image</Th>
@@ -177,9 +177,9 @@ export default function BackOffice() {
                   {sortField === "grade" &&
                     sortDirection !== "none" &&
                     (sortDirection === "asc" ? (
-                      <ChevronUpIcon />
-                    ) : (
                       <ChevronDownIcon />
+                    ) : (
+                      <ChevronUpIcon />
                     ))}
                 </Th>
                 <Th onClick={() => requestSort("scale")}>
@@ -187,9 +187,9 @@ export default function BackOffice() {
                   {sortField === "scale" &&
                     sortDirection !== "none" &&
                     (sortDirection === "asc" ? (
-                      <ChevronUpIcon />
-                    ) : (
                       <ChevronDownIcon />
+                    ) : (
+                      <ChevronUpIcon />
                     ))}
                 </Th>
                 <Th onClick={() => requestSort("series")}>
@@ -197,9 +197,9 @@ export default function BackOffice() {
                   {sortField === "series" &&
                     sortDirection !== "none" &&
                     (sortDirection === "asc" ? (
-                      <ChevronUpIcon />
-                    ) : (
                       <ChevronDownIcon />
+                    ) : (
+                      <ChevronUpIcon />
                     ))}
                 </Th>
                 <Th>Description</Th>
