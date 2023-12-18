@@ -150,22 +150,22 @@ export default function BackOffice() {
       w="100%"
     >
       <Stack w="50%">
-        <InputGroup borderColor="#2894E2">
+        <InputGroup borderColor="#314095">
           <InputLeftElement pointerEvents="none">
-            <Search2Icon color="#2894E2" />
+            <Search2Icon color="#314095" />
           </InputLeftElement>
           <Input
             placeholder="Recherche"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            sx={{ "::placeholder": { color: "#2894E2" } }}
+            sx={{ "::placeholder": { color: "#314095" } }}
           />
           <InputRightElement>
             {search && (
               <IconButton
                 onClick={() => setSearch("")}
                 variant="ghost"
-                icon={<CloseIcon color="#2894E2" />}
+                icon={<CloseIcon color="#314095" />}
                 _hover={{}}
                 _active={{}}
               />

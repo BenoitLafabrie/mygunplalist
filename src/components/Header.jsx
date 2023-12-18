@@ -39,7 +39,13 @@ export default function Header() {
           <Image src={MyGunplaListLogo} boxSize="7.5%" ml="1em" />
           <Image src={BrandLogo} />
         </HStack>
-        <ButtonGroup spacing={3} variant="ghost" size="md" ml="-20%">
+        <ButtonGroup
+          spacing={3}
+          variant="ghost"
+          size="md"
+          ml="-20%"
+          gap={{ md: "1em", lg: "2em" }}
+        >
           <ChakraLink as={ReactRouterLink} to="/admin">
             <Button color="white" _hover={{ bg: "#314095" }}>
               Dashboard

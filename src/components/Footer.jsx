@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Box, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useBreakpointValue } from "@chakra-ui/react";
@@ -22,25 +22,38 @@ export default function Footer() {
       display={{ sm: "grid", md: "flex" }}
       w="100%"
       h={{ sm: "28%", md: "14%" }}
+      flexDirection={{ sm: "unset", md: "column" }}
       position={{ sm: "static", md: "relative" }}
-      mb="7.5vh"
-      alignItems="center"
+      mb={{ sm: "7.5vh", md: "unset" }}
+      pb={{ sm: "unset", md: "0.5em" }}
+      alignItems={{ sm: "center", md: "start" }}
+      alignContent={{ sm: "unset", md: "start" }}
       backgroundImage={bgImage}
+      bgColor={{ sm: "transparent", md: "#F00D32" }}
       zIndex={2}
+      justifyContent={{ sm: "normal", md: "center" }}
     >
       <Box
         w={{ sm: "80%", md: "100%" }}
         display="flex"
         justifySelf="center"
-        mb="auto"
+        px={{ sm: "unset", md: "1em" }}
+        mt={{ sm: "unset", md: "0.5em" }}
+        mb={{ sm: "auto", md: "0.5em" }}
+        justifyContent={{ sm: "unset", md: "center" }}
       >
-        <Text fontSize="60%" align="center">
+        <Text
+          fontSize="60%"
+          fontWeight={{ sm: "normal", md: "bold" }}
+          align="center"
+          textColor={{ sm: "auto", md: "white" }}
+        >
           Les Logos, produits et noms de sociétés mentionnnés sont la propriété
-          de leurs auteurs respectifs. © MyGunplaList 2024
+          de leurs auteurs respectifs. ©MyGunplaList 2024
         </Text>
       </Box>
       <Box
-        display="flex"
+        display={{ sm: "flex", md: "none" }}
         justifyContent="center"
         alignItems="center"
         h="40%"
@@ -59,19 +72,23 @@ export default function Footer() {
           <Image src={Tagline} />
         </Box>
       </Box>
-      <SimpleGrid
-        columns={2}
-        spacing={2}
+      <Box
         alignContent="center"
         alignItems="center"
         justifyItems="center"
-        marginBottom="auto"
+        marginBottom={{ sm: "auto", md: "0" }}
+        display={{ sm: "grid", md: "flex" }}
+        w={{ sm: "unset", md: "100%" }}
+        justifyContent={{ sm: "unset", md: "space-around" }}
       >
         <Box
           display="flex"
-          flexDirection="column"
-          fontSize="80%"
+          px={{ sm: "unset", md: "1em" }}
+          flexDirection={{ sm: "column", md: "row" }}
+          gap={{ sm: "unset", md: "1.5em" }}
+          fontSize={{ sm: "80%", md: "90%" }}
           textColor="white"
+          fontWeight="bold"
         >
           <ChakraLink as={ReactRouterLink} to="/about">
             À propos
@@ -83,42 +100,55 @@ export default function Footer() {
             Politique de confidentialité
           </ChakraLink>
         </Box>
-        <SimpleGrid columns={3} spacing={3} ml="2em">
-          <ChakraLink
-            as={ReactRouterLink}
-            to="https://www.facebook.com/riseofgunpla"
+        <Stack display={{ sm: "none", md: "flex" }} flexDirection="row">
+          <Box display={{ sm: "none", md: "flex" }} px="1em">
+            <Text textColor="white" fontWeight="bold">
+              Retrouvez-nous sur les réseaux sociaux :
+            </Text>
+          </Box>
+          <Box
+            display={{ sm: "grid", md: "flex" }}
+            flexDirection={{ sm: "unset", md: "row" }}
+            px={{ sm: "unset", md: "1em" }}
+            ml={{ sm: "2em", md: "unset" }}
+            gap={{ sm: "unset", md: "1.5em" }}
           >
-            <Image src={FaceBookIcon} />
-          </ChakraLink>
-          <ChakraLink
-            as={ReactRouterLink}
-            to="https://www.instagram.com/riseofgunpla"
-          >
-            <Image src={InstagramIcon} mt="0.1em" />
-          </ChakraLink>
-          <ChakraLink
-            as={ReactRouterLink}
-            to="https://twitter.com/Riseofgunpla"
-          >
-            <Image src={TwitterIcon} mt="0.25em" />
-          </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="https://discord.gg/J2VYmbd">
-            <Image src={DiscordIcon} />
-          </ChakraLink>
-          <ChakraLink
-            as={ReactRouterLink}
-            to="https://www.twitch.tv/riseofgunpla"
-          >
-            <Image src={TwitchIcon} mt="0.2em" />
-          </ChakraLink>
-          <ChakraLink
-            as={ReactRouterLink}
-            to="https://www.youtube.com/channel/UC_CCjUpIV-cBKGAwwrMVzow"
-          >
-            <Image src={YoutubeIcon} mt="0.25em" />
-          </ChakraLink>
-        </SimpleGrid>
-      </SimpleGrid>
+            <ChakraLink
+              as={ReactRouterLink}
+              to="https://www.facebook.com/riseofgunpla"
+            >
+              <Image src={FaceBookIcon} />
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to="https://www.instagram.com/riseofgunpla"
+            >
+              <Image src={InstagramIcon} mt="0.1em" />
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to="https://twitter.com/Riseofgunpla"
+            >
+              <Image src={TwitterIcon} mt="0.25em" />
+            </ChakraLink>
+            <ChakraLink as={ReactRouterLink} to="https://discord.gg/J2VYmbd">
+              <Image src={DiscordIcon} />
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to="https://www.twitch.tv/riseofgunpla"
+            >
+              <Image src={TwitchIcon} mt="0.2em" />
+            </ChakraLink>
+            <ChakraLink
+              as={ReactRouterLink}
+              to="https://www.youtube.com/channel/UC_CCjUpIV-cBKGAwwrMVzow"
+            >
+              <Image src={YoutubeIcon} mt="0.25em" />
+            </ChakraLink>
+          </Box>
+        </Stack>
+      </Box>
     </Box>
   );
 }
