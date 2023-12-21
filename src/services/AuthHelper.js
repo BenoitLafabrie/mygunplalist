@@ -1,5 +1,5 @@
-import * as argon2 from "argon2";
-import * as jwt from "jsonwebtoken";
+import argon2 from "argon2";
+import jwt from "jsonwebtoken";
 import * as fs from "fs";
 
 const privateKey = fs.readFileSync("jwtRS256.key");
@@ -12,7 +12,7 @@ const hashingOptions = {
 };
 
 const hashPassword = async (req, res, next) => {
-  if (!req.body.password) next();
+  if (typeof req.body.password !== "string") return next();
   try {
     req.body.password = await argon2.hash(req.body.password, hashingOptions);
     next();
@@ -30,9 +30,10 @@ const verifyPassword = async (req, res) => {
       hashingOptions
     );
     if (!isVerified) res.status(401).send("Unauthorized");
-    delete req.user.password;
+    const userWithoutPassword = { ...req.user };
+    delete userWithoutPassword.password;
     const payload = {
-      sub: req.user,
+      sub: userWithoutPassword,
     };
     const token = jwt.sign(payload, privateKey, {
       // expiresIn: "1h",
@@ -57,6 +58,7 @@ function verifyToken(req, res, next) {
     req.payload = decoded;
     next();
   } catch (error) {
+    console.error(error);
     return res.status(401).send("Invalid token");
   }
 }
@@ -68,8 +70,8 @@ function checkSameParamsIdAsToken(req, res, next) {
     );
     return res.status(401).send("Invalid token");
   }
-  console.log(req.payload);
-  if (req.payload.sub.id === parseInt(req.params.id)) next();
+  req.payload.user_id = parseInt(req.payload.user_id);
+  if (req.payload.user_id === parseInt(req.params.id)) next();
   else res.sendStatus(403);
 }
 

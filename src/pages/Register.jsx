@@ -38,12 +38,12 @@ export default function Register() {
         </Text>
       </Stack>
       <VStack h="79vh" w="80%" mt="2em" mx="auto" spacing={3}>
-        <FormControl id="firstname" isRequired borderColor="#2894E2">
-          <FormLabel textColor="#2894E2">Prénom</FormLabel>
+        <FormControl id="firstname" isRequired borderColor="#06425b">
+          <FormLabel textColor="#06425b">Prénom</FormLabel>
           <Input type="text" />
         </FormControl>
-        <FormControl id="lastname" isRequired borderColor="#314095">
-          <FormLabel textColor="#314095">Nom</FormLabel>
+        <FormControl id="lastname" isRequired borderColor="#06425b">
+          <FormLabel textColor="#06425b">Nom</FormLabel>
           <Input type="text" />
         </FormControl>
         <FormControl id="username" isRequired>

@@ -90,8 +90,8 @@ model Users {
   email             String              @db.VarChar(255)
   password          String              @db.VarChar(255)
   birthdate         DateTime            @db.Date
-  createdAt         DateTime            @db.DateTime(0)
-  role              Users_role
+  createdAt         DateTime            @default(now())
+  role              Users_role          @default(user)
   Comments          Comments[]
   Friends           Friends[]
   User_achievements User_achievements[]

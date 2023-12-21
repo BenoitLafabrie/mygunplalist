@@ -175,7 +175,7 @@ export default function BackOffice() {
       </Stack>
       <Stack w="100%">
         <TableContainer m="2%">
-          <Table variant="striped" colorScheme="red" w="100%">
+          <Table variant="striped" colorScheme="brand" w="100%">
             <Thead>
               <Tr>
                 <Th onClick={() => requestSort("name")}>
