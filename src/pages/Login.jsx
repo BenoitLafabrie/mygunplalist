@@ -1,4 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useState } from "react";
+import { useAuth } from "../services/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   FormControl,
@@ -7,6 +10,7 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import ButtonIconLogo from "../assets/icons/ButtonIconLogo.svg";
@@ -15,6 +19,29 @@ import Footer from "../components/Footer";
 import BottomNavBar from "../components/BottomNavBar";
 
 export default function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const toast = useToast();
+
+  const handleSubmit = async (event) => {
+    console.log();
+    event.preventDefault();
+    try {
+      await login(username, password);
+      navigate("/add_kit");
+      toast({
+        title: "Conexion réussie",
+        description: "Bon retour parmi nous!",
+        status: "success",
+        duration: 3000,
+      });
+    } catch (error) {
+      navigate("/error");
+    }
+  };
+
   return (
     <div
       style={{
@@ -38,17 +65,42 @@ export default function Login() {
         </Text>
       </Stack>
       <VStack h="79vh" w="80%" mt="4em" mx="auto" spacing={8}>
-        <FormControl id="username" isRequired>
-          <FormLabel>Username</FormLabel>
-          <Input type="text" />
-        </FormControl>
-        <FormControl id="password" isRequired>
-          <FormLabel>Password</FormLabel>
-          <Input type="password" />
-        </FormControl>
-        <Button colorScheme="red" variant="outline" mt="1em">
-          CONNEXION
-        </Button>
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1em",
+          }}
+        >
+          <FormControl id="username" isRequired borderColor="#314095" w="80%">
+            <FormLabel>Pseudo</FormLabel>
+            <Input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </FormControl>
+          <FormControl id="password" isRequired borderColor="#314095" w="80%">
+            <FormLabel>Mot de passe</FormLabel>
+            <Input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+          <Button
+            colorScheme="red"
+            variant="outline"
+            type="submit"
+            mt="1em"
+            w={{ sm: "40%", md: "20%" }}
+          >
+            CONNEXION
+          </Button>
+        </form>
       </VStack>
       <Footer />
       <BottomNavBar />

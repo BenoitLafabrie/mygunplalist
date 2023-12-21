@@ -98,6 +98,8 @@ model Users {
   Users_images      Users_images[]
   Wishlists         Wishlists?
   Mygunplalist      Mygunplalist?
+
+  // nom et prénom falcultatifs - adresse, code postal et pays falcultatifs - genre falcultatif
 }
 
 model Users_images {

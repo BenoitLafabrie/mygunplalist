@@ -38,28 +38,28 @@ export default function Register() {
         </Text>
       </Stack>
       <VStack h="79vh" w="80%" mt="2em" mx="auto" spacing={3}>
-        <FormControl id="firstname" isRequired borderColor="#06425b">
-          <FormLabel textColor="#06425b">Prénom</FormLabel>
+        <FormControl id="username" isRequired borderColor="#06425b">
+          <FormLabel textColor="#06425b">Pseudo</FormLabel>
           <Input type="text" />
         </FormControl>
-        <FormControl id="lastname" isRequired borderColor="#06425b">
+        <FormControl id="lastname" borderColor="#06425b">
           <FormLabel textColor="#06425b">Nom</FormLabel>
           <Input type="text" />
         </FormControl>
-        <FormControl id="username" isRequired>
-          <FormLabel>Pseudo</FormLabel>
+        <FormControl id="firstname" borderColor="#06425b">
+          <FormLabel textColor="#06425b">Prénom</FormLabel>
           <Input type="text" />
         </FormControl>
-        <FormControl id="email" isRequired>
-          <FormLabel>E-Mail</FormLabel>
+        <FormControl id="email" isRequired borderColor="#06425b">
+          <FormLabel textColor="#06425b">E-Mail</FormLabel>
           <Input type="email" />
         </FormControl>
-        <FormControl id="password" isRequired>
-          <FormLabel>Mot de passe</FormLabel>
+        <FormControl id="password" isRequired borderColor="#06425b">
+          <FormLabel textColor="#06425b">Mot de passe</FormLabel>
           <Input type="password" />
         </FormControl>
-        <FormControl id="birthdate" isRequired>
-          <FormLabel>Date de naissance</FormLabel>
+        <FormControl id="birthdate" isRequired borderColor="#06425b">
+          <FormLabel textColor="#06425b">Date de naissance</FormLabel>
           <Input type="date" />
         </FormControl>
         <Button colorScheme="red" variant="outline" mt="1em">

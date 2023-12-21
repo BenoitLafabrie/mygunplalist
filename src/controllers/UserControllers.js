@@ -62,6 +62,7 @@ const getOneUserByIdController = async (req, res) => {
         lastname: true,
         email: true,
         birthdate: true,
+        role: true,
       },
     });
     if (!oneUserById) {
