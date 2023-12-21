@@ -35,6 +35,7 @@ const getAllUsersController = async (req, res) => {
     const users = await prisma.users.findMany({
       select: {
         user_id: true,
+        username: true,
         firstname: true,
         lastname: true,
         email: true,
@@ -58,6 +59,7 @@ const getOneUserByIdController = async (req, res) => {
       },
       select: {
         user_id: true,
+        username: true,
         firstname: true,
         lastname: true,
         email: true,

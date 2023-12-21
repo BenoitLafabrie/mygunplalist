@@ -35,6 +35,8 @@ const router = createBrowserRouter([
       { path: "/kits/:id", element: <KitPage /> },
       { path: "/admin", element: <BackOffice /> },
       { path: "/error", element: <ErrorPage /> },
+      { path: "/register", element: <Register /> },
+      { path: "/login", element: <Login /> },
     ],
   },
   {
@@ -43,8 +45,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [],
   },
-  { path: "/register", element: <Register /> },
-  { path: "/login", element: <Login /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

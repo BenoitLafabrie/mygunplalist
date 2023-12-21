@@ -85,11 +85,16 @@ model User_achievements {
 model Users {
   user_id           Int                 @id @default(autoincrement())
   username          String              @db.VarChar(255)
-  firstname         String              @db.VarChar(255)
-  lastname          String              @db.VarChar(255)
+  firstname         String?             @db.VarChar(255)
+  lastname          String?             @db.VarChar(255)
   email             String              @db.VarChar(255)
   password          String              @db.VarChar(255)
   birthdate         DateTime            @db.Date
+  address           String?             @db.VarChar(255)
+  postcode          String?             @db.VarChar(255)
+  city              String?             @db.VarChar(255)
+  country           String?             @db.VarChar(255)
+  gender            String?             @db.VarChar(255)
   createdAt         DateTime            @default(now())
   role              Users_role          @default(user)
   Comments          Comments[]
@@ -98,8 +103,6 @@ model Users {
   Users_images      Users_images[]
   Wishlists         Wishlists?
   Mygunplalist      Mygunplalist?
-
-  // nom et prénom falcultatifs - adresse, code postal et pays falcultatifs - genre falcultatif
 }
 
 model Users_images {

@@ -14,9 +14,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import ButtonIconLogo from "../assets/icons/ButtonIconLogo.svg";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import BottomNavBar from "../components/BottomNavBar";
 
 export default function Login() {
   const { login } = useAuth();
@@ -51,7 +48,6 @@ export default function Login() {
         overflow: "auto",
       }}
     >
-      <Header />
       <Stack
         display="flex"
         flexDirection="row"
@@ -102,8 +98,6 @@ export default function Login() {
           </Button>
         </form>
       </VStack>
-      <Footer />
-      <BottomNavBar />
     </div>
   );
 }
