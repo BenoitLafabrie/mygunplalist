@@ -9,15 +9,25 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { useAuth } from "../services/AuthProvider";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
+import { BiLogOut } from "react-icons/bi";
+import { HiOutlineUser } from "react-icons/hi";
 import Header_Icon from "../assets/header/Header_Icon.svg";
 import { Search2Icon } from "@chakra-ui/icons";
 import BrandLogo from "../assets/header/BrandLogo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 
 export default function Header() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <Box w="100%">
       <ChakraLink as={ReactRouterLink} to="/home" w="100vw">
@@ -77,12 +87,31 @@ export default function Header() {
               sx={{ "::placeholder": { color: "white" } }}
             />
           </InputGroup>
-          <Avatar
-            size="md"
-            name="Dan Abrahmov"
-            src="https://bit.ly/dan-abramov"
-            mr="1em"
-          />
+          <Menu>
+            <MenuButton>
+              <Avatar
+                size="md"
+                name="Dan Abrahmov"
+                src="https://bit.ly/dan-abramov"
+                mr="1em"
+              />
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                icon={<HiOutlineUser />}
+                onClick={() => navigate("/profile")}
+              >
+                Profil
+              </MenuItem>
+              <MenuItem
+                icon={<BiLogOut />}
+                textColor="brand.500"
+                onClick={logout}
+              >
+                Déconnexion
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </HStack>
       </Flex>
     </Box>
