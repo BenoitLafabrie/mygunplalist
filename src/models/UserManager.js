@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import hashPassword from "../services/AuthHelper.js";
 
 const prisma = new PrismaClient();
 
@@ -7,26 +8,28 @@ const insertUser = async ({
   firstname,
   lastname,
   email,
-  birthDate,
+  birthdate,
   password,
 }) => {
   try {
+    const birthdateForPrisma = `${birthdate}T00:00:00Z`;
     const user = await prisma.users.create({
       data: {
         username,
         firstname,
         lastname,
         email,
-        birthDate,
+        birthdate: birthdateForPrisma,
         password,
       },
       select: {
-        id: true,
+        user_id: true,
         username,
         firstname: true,
         lastname: true,
         email: true,
-        birthDate: true,
+        birthdate: true,
+        role: true,
       },
     });
     return { status: 201, data: user };
@@ -40,12 +43,12 @@ const getAllUsers = async () => {
   try {
     const users = await prisma.users.findMany({
       select: {
-        id: true,
+        user_id: true,
         username: true,
         firstname: true,
         lastname: true,
         email: true,
-        birthDate: true,
+        birthdate: true,
       },
     });
     return { status: 200, data: users };
@@ -59,7 +62,7 @@ const getUserById = async (id) => {
   try {
     const getUser = await prisma.users.findUnique({
       where: {
-        id: parseInt(id),
+        user_id: parseInt(id),
       },
     });
     if (!getUser) {
@@ -73,26 +76,31 @@ const getUserById = async (id) => {
 };
 
 const updateUser = async (id, body) => {
-  const { username, firstname, lastname, email, birthDate } = body;
+  const { username, firstname, lastname, email, birthdate, role, password } =
+    body;
   try {
+    const hashedPassword = password ? await hashPassword(password) : undefined;
     const user = await prisma.users.update({
       where: {
-        id: parseInt(id),
+        user_id: parseInt(id),
       },
       data: {
         username: username,
         firstname: firstname,
         lastname: lastname,
         email: email,
-        birthDate: birthDate,
+        birthdate: birthdate,
+        role: role,
+        password: hashedPassword,
       },
       select: {
-        id: true,
+        user_id: true,
         username: true,
         firstname: true,
         lastname: true,
         email: true,
-        birthDate: true,
+        birthdate: true,
+        role: true,
       },
     });
     return { status: 200, data: user };

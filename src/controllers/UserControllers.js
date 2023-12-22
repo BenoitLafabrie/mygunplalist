@@ -1,14 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import pkg from "jsonwebtoken";
 import { insertUser, updateUser, getUserById } from "../models/UserManager.js";
+import * as fs from "fs";
 
+const privateKey = fs.readFileSync("jwtRS256.key");
+const { sign } = pkg;
 const prisma = new PrismaClient();
-const { jwt, payload, privateKey } = pkg;
 
 const createUserController = async (req, res) => {
   let { status, data } = await insertUser(req.body);
   if (status === 201) {
-    const token = jwt.sign(payload, privateKey, {
+    const payload = { user_id: data.user_id };
+    const token = sign(payload, privateKey, {
       // expiresIn: "1h",
       algorithm: "RS256",
     });
@@ -32,10 +35,12 @@ const getAllUsersController = async (req, res) => {
     const users = await prisma.users.findMany({
       select: {
         user_id: true,
+        username: true,
         firstname: true,
         lastname: true,
         email: true,
-        birthDate: true,
+        birthdate: true,
+        role: true,
       },
     });
     res.status(200).send(users);
@@ -54,10 +59,12 @@ const getOneUserByIdController = async (req, res) => {
       },
       select: {
         user_id: true,
+        username: true,
         firstname: true,
         lastname: true,
         email: true,
-        birthDate: true,
+        birthdate: true,
+        role: true,
       },
     });
     if (!oneUserById) {

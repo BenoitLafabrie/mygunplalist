@@ -9,6 +9,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   Stack,
   Table,
   Thead,
@@ -23,8 +24,10 @@ import { Link as ChakraLink } from "@chakra-ui/react";
 import {
   ArrowBackIcon,
   ArrowForwardIcon,
+  CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  CloseIcon,
   Search2Icon,
 } from "@chakra-ui/icons";
 
@@ -32,13 +35,13 @@ export default function BackOffice() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 10; // Changer le nombre d'items par page pour
 
   useEffect(() => {
     fetch("http://localhost:3000/kits")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error fetching kits");
+          throw new Error("Erreur lors de la récupération des kits");
         }
         return response.json();
       })
@@ -46,7 +49,7 @@ export default function BackOffice() {
         fetch("http://localhost:3000/kits-images")
           .then((response) => {
             if (!response.ok) {
-              throw new Error("Error fetching kit images");
+              throw new Error("Erreur lors de la récupération des images");
             }
             return response.json();
           })
@@ -61,7 +64,9 @@ export default function BackOffice() {
             fetch("http://localhost:3000/kits-props")
               .then((response) => {
                 if (!response.ok) {
-                  throw new Error("Error fetching kit props");
+                  throw new Error(
+                    "Erreur lors de la récupération des propriétés"
+                  );
                 }
                 return response.json();
               })
@@ -145,24 +150,36 @@ export default function BackOffice() {
       w="100%"
     >
       <Stack w="50%">
-        <InputGroup>
+        <InputGroup borderColor="#314095">
           <InputLeftElement pointerEvents="none">
-            <Search2Icon color="gray.300" />
+            <Search2Icon color="#314095" />
           </InputLeftElement>
           <Input
-            placeholder="Search"
+            placeholder="Recherche"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            sx={{ "::placeholder": { color: "#314095" } }}
           />
+          <InputRightElement>
+            {search && (
+              <IconButton
+                onClick={() => setSearch("")}
+                variant="ghost"
+                icon={<CloseIcon color="#314095" />}
+                _hover={{}}
+                _active={{}}
+              />
+            )}
+          </InputRightElement>
         </InputGroup>
       </Stack>
       <Stack w="100%">
         <TableContainer m="2%">
-          <Table variant="striped" colorScheme="red" w="100%">
+          <Table variant="striped" colorScheme="brand" w="100%">
             <Thead>
               <Tr>
                 <Th onClick={() => requestSort("name")}>
-                  Name
+                  Nom
                   {sortField === "name" &&
                     sortDirection !== "none" &&
                     (sortDirection === "asc" ? (
@@ -171,7 +188,7 @@ export default function BackOffice() {
                       <ChevronUpIcon />
                     ))}
                 </Th>
-                <Th>Image</Th>
+                <Th>Box Art</Th>
                 <Th onClick={() => requestSort("grade")}>
                   Grade
                   {sortField === "grade" &&
@@ -183,7 +200,7 @@ export default function BackOffice() {
                     ))}
                 </Th>
                 <Th onClick={() => requestSort("scale")}>
-                  Scale
+                  Échelle
                   {sortField === "scale" &&
                     sortDirection !== "none" &&
                     (sortDirection === "asc" ? (
@@ -193,7 +210,7 @@ export default function BackOffice() {
                     ))}
                 </Th>
                 <Th onClick={() => requestSort("series")}>
-                  Series
+                  Série
                   {sortField === "series" &&
                     sortDirection !== "none" &&
                     (sortDirection === "asc" ? (
@@ -202,8 +219,8 @@ export default function BackOffice() {
                       <ChevronUpIcon />
                     ))}
                 </Th>
-                <Th>Description</Th>
-                <Th>ROG Link</Th>
+                <Th textAlign="center">Description</Th>
+                <Th textAlign="center">Lien ROG</Th>
               </Tr>
             </Thead>
             <Tbody fontSize="sm">
@@ -211,9 +228,12 @@ export default function BackOffice() {
                 return (
                   <Tr key={item.item_id}>
                     <Td>
-                      {item.name.length > 55
-                        ? item.name.substring(0, 55) + "..."
-                        : item.name}
+                      <ChakraLink
+                        as={ReactRouterLink}
+                        to={`/kits/${item.item_id}`}
+                      >
+                        {item.name}
+                      </ChakraLink>
                     </Td>
                     <Td>
                       {item.images && item.images[0] ? (
@@ -231,30 +251,32 @@ export default function BackOffice() {
                     <Td>
                       {item.props && item.props[0] && item.props[0].grade
                         ? item.props[0].grade
-                        : "No Grade"}
+                        : "Pas de grade indiqué"}
                     </Td>
                     <Td>
                       {item.props && item.props[0] && item.props[0].scale
                         ? item.props[0].scale
-                        : "No Scale"}
+                        : "Aucune échelle indiquée"}
                     </Td>
                     <Td>
                       {item.props && item.props[0] && item.props[0].series
                         ? item.props[0].series
-                        : "No Series"}
+                        : "Aucune série indiquée"}
                     </Td>
-                    <Td>
-                      {item.description.length > 30
-                        ? item.description.substring(0, 30) + "..."
-                        : item.description}
+                    <Td textAlign="center">
+                      {item.description ? (
+                        <CheckIcon color="green.500" />
+                      ) : (
+                        <CloseIcon color="red.500" />
+                      )}
                     </Td>
-                    <Td>
+                    <Td textAlign="center">
                       <ChakraLink
                         as={ReactRouterLink}
                         to={`${item.ROG_Url}`}
                         isExternal
                       >
-                        {item.ROG_Url ? "Let's Go!!!" : "No Link"}
+                        {item.ROG_Url ? "Lien" : "Pas de lien"}
                       </ChakraLink>
                     </Td>
                   </Tr>
@@ -272,15 +294,15 @@ export default function BackOffice() {
                 onClick={() => setCurrentPage(1)}
                 disabled={currentPage === 1}
                 variant="outline"
-                colorScheme="red"
+                color="#314095"
               >
-                First Page
+                Première Page
               </Button>
               <IconButton
                 onClick={handleClickPrev}
                 disabled={currentPage === 1}
                 variant="outline"
-                colorScheme="red"
+                color="#314095"
                 icon={<ArrowBackIcon />}
               />
             </>
@@ -293,7 +315,7 @@ export default function BackOffice() {
                 onClick={() => setCurrentPage(number)}
                 disabled={currentPage === number}
                 variant="outline"
-                colorScheme="red"
+                color="#314095"
               >
                 {number}
               </Button>
@@ -304,16 +326,16 @@ export default function BackOffice() {
                 onClick={handleClickNext}
                 disabled={currentPage === totalPages}
                 variant="outline"
-                colorScheme="red"
+                color="#314095"
                 icon={<ArrowForwardIcon />}
               />
               <Button
                 onClick={() => setCurrentPage(totalPages)}
                 disabled={currentPage === totalPages}
                 variant="outline"
-                colorScheme="red"
+                color="#314095"
               >
-                Last Page
+                Dernière Page
               </Button>
             </>
           )}

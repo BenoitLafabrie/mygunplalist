@@ -4,7 +4,7 @@ export default function Profile() {
   return (
     <div style={{ height: "79vh" }}>
       <Center>
-        <h1>Profile</h1>
+        <h1>Profil</h1>
       </Center>
     </div>
   );

@@ -10,6 +10,19 @@ const config = {
 const theme = extendTheme({
   config,
   fonts: { heading: `"Rubik", sans-serif`, body: `"Rubik", sans-serif` },
+  colors: {
+    brand: {
+      100: "#f4f9fb",
+      200: "#FECACA",
+      300: "#FCA5A5",
+      400: "#F87171",
+      500: "#F00D32",
+      600: "#DC2626",
+      700: "#B91C1C",
+      800: "#991B1B",
+      900: "#7F1D1D",
+    },
+  },
   styles: {
     global: {
       body: {

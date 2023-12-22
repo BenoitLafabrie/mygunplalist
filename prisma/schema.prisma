@@ -85,13 +85,18 @@ model User_achievements {
 model Users {
   user_id           Int                 @id @default(autoincrement())
   username          String              @db.VarChar(255)
-  firstname         String              @db.VarChar(255)
-  lastname          String              @db.VarChar(255)
+  firstname         String?             @db.VarChar(255)
+  lastname          String?             @db.VarChar(255)
   email             String              @db.VarChar(255)
   password          String              @db.VarChar(255)
   birthdate         DateTime            @db.Date
-  createdAt         DateTime            @db.DateTime(0)
-  role              Users_role
+  address           String?             @db.VarChar(255)
+  postcode          String?             @db.VarChar(255)
+  city              String?             @db.VarChar(255)
+  country           String?             @db.VarChar(255)
+  gender            String?             @db.VarChar(255)
+  createdAt         DateTime            @default(now())
+  role              Users_role          @default(user)
   Comments          Comments[]
   Friends           Friends[]
   User_achievements User_achievements[]

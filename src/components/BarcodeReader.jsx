@@ -112,25 +112,25 @@ export default function BarcodeReader() {
       justifyContent="space-between"
     >
       <Text mt="1.25em" fontSize="xl" align="center">
-        Let's add your kit(s) into your collection
+        Ajoutons un kit à votre collection !
       </Text>
       <Box as="video" ref={ref} w="80%" borderRadius={10} />
       <HStack>
         <Button colorScheme="teal" onClick={startScan}>
-          Start Scan
+          Démarrer le scan
         </Button>
         <Button colorScheme="red" onClick={stopScan}>
-          Stop Scan
+          Arrêter le scan
         </Button>
       </HStack>
 
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Text mb="1em">Last result:</Text>
+        <Text mb="1em">Dernier scan:</Text>
         <Text>{result}</Text>
       </Box>
 
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Text mb="1em">Scanned barcodes:</Text>
+        <Text mb="1em">Code-barres scannés:</Text>
         <List spacing={1}>
           {Array.from(uniqueBarcodes).map((barcode, index) => (
             <ListItem key={index}>{barcode}</ListItem>
@@ -139,7 +139,7 @@ export default function BarcodeReader() {
       </Box>
 
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Text mb="1em">Scanned items:</Text>
+        <Text mb="1em">Kits scannés:</Text>
         <List spacing={1} mb="1em">
           {scannedItems.map((item, index) => (
             <ListItem key={index}>{item.name}</ListItem>
