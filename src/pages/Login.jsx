@@ -18,24 +18,29 @@ import ButtonIconLogo from "../assets/icons/ButtonIconLogo.svg";
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
 
   const handleSubmit = async (event) => {
-    console.log();
     event.preventDefault();
     try {
-      await login(username, password);
-      navigate("/add_kit");
+      await login(email, password);
+      navigate("/about");
       toast({
-        title: "Conexion réussie",
+        title: "Connexion réussie",
         description: "Bon retour parmi nous!",
         status: "success",
         duration: 3000,
       });
     } catch (error) {
       navigate("/error");
+      toast({
+        title: "Erreur lors de la connexion",
+        description: "Oups!",
+        status: "error",
+        duration: 3000,
+      });
     }
   };
 
@@ -73,11 +78,11 @@ export default function Login() {
           }}
         >
           <FormControl id="username" isRequired borderColor="#314095" w="80%">
-            <FormLabel>Pseudo</FormLabel>
+            <FormLabel>E-mail</FormLabel>
             <Input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </FormControl>
           <FormControl id="password" isRequired borderColor="#314095" w="80%">

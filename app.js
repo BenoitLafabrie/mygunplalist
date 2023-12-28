@@ -38,7 +38,7 @@ process.on("SIGTERM", async () => {
 });
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(cors());
 
@@ -57,7 +57,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", rootRouter);
-app.use("/auth", authRouter);
+app.use("/", authRouter);
 app.use("/users", usersRouter);
 app.use("/user-achievements", userAchievementsRouter);
 app.use("/user-images", userImagesRouter);

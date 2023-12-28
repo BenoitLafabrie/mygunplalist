@@ -35,7 +35,7 @@ export default function Search() {
 
   // Fetch the items when the component mounts
   useEffect(() => {
-    fetch("http://localhost:3000/kits")
+    fetch("http://localhost:3001/kits")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des kits");
@@ -43,7 +43,7 @@ export default function Search() {
         return response.json();
       })
       .then((items) => {
-        fetch("http://localhost:3000/kits-images")
+        fetch("http://localhost:3001/kits-images")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Erreur lors de la récupération des images");

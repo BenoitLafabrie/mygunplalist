@@ -9,6 +9,7 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import ButtonIconLogo from "../assets/icons/ButtonIconLogo.svg";
@@ -22,6 +23,7 @@ export default function Register() {
   const [birthdate, setBirthdate] = useState("");
 
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,7 +37,7 @@ export default function Register() {
       birthdate,
     };
 
-    const response = await fetch("http://localhost:3000/users/", {
+    const response = await fetch("http://localhost:3001/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,8 +48,20 @@ export default function Register() {
     if (response.ok) {
       console.log("User created successfully");
       navigate("/add_kit");
+      toast({
+        title: "Création de compte réussie",
+        description: "Bienvenue!",
+        status: "success",
+        duration: 3000,
+      });
     } else {
       console.error("Error creating user");
+      toast({
+        title: "Erreur lors de la création du compte",
+        description: "Oups!",
+        status: "error",
+        duration: 3000,
+      });
     }
   };
   return (

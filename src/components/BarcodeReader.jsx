@@ -28,7 +28,7 @@ export default function BarcodeReader() {
 
   // Fetch the items when the component mounts
   useEffect(() => {
-    fetch("http://localhost:3000/kits")
+    fetch("http://localhost:3001/kits")
       .then((response) => response.json())
       .then((data) => {
         setItems(data);

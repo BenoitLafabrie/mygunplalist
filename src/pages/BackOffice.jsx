@@ -38,7 +38,7 @@ export default function BackOffice() {
   const itemsPerPage = 10; // Changer le nombre d'items par page pour
 
   useEffect(() => {
-    fetch("http://localhost:3000/kits")
+    fetch("http://localhost:3001/kits")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des kits");
@@ -46,7 +46,7 @@ export default function BackOffice() {
         return response.json();
       })
       .then((items) => {
-        fetch("http://localhost:3000/kits-images")
+        fetch("http://localhost:3001/kits-images")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Erreur lors de la récupération des images");
@@ -61,7 +61,7 @@ export default function BackOffice() {
             return itemsWithImages;
           })
           .then((itemsWithImages) => {
-            fetch("http://localhost:3000/kits-props")
+            fetch("http://localhost:3001/kits-props")
               .then((response) => {
                 if (!response.ok) {
                   throw new Error(

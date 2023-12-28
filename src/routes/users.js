@@ -13,6 +13,12 @@ router.get(
   userControllers.getOneUserByIdController
 );
 
+router.get(
+  "/me",
+  authHelper.verifyToken,
+  userControllers.getAuthenticatedUserController
+);
+
 router.put(
   "/:id",
   authHelper.verifyToken,

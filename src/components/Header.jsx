@@ -25,7 +25,7 @@ import BrandLogo from "../assets/header/BrandLogo.svg";
 import MyGunplaListLogo from "../assets/header/MyGunplaListLogo.svg";
 
 export default function Header() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -99,7 +99,7 @@ export default function Header() {
             <MenuList>
               <MenuItem
                 icon={<HiOutlineUser />}
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate(`/users/${user.user_id}`)}
               >
                 Profil
               </MenuItem>

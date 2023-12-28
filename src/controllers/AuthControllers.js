@@ -6,6 +6,7 @@ const getUserByEmailAndPassToNext = async (req, res, next) => {
   const { status, data } = await findUserByEmail(email);
   if (status !== 200) return res.status(status).send(data);
   req.user = data;
+  req.password = password;
   next();
 };
 

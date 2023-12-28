@@ -35,11 +35,12 @@ const verifyPassword = async (req, res) => {
     const payload = {
       sub: userWithoutPassword,
     };
+    console.log("req.user:", req.user);
     const token = jwt.sign(payload, privateKey, {
       // expiresIn: "1h",
       algorithm: "RS256",
     });
-    res.status(200).send({ token });
+    res.status(200).send({ token, user: userWithoutPassword });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Error");
@@ -48,12 +49,14 @@ const verifyPassword = async (req, res) => {
 
 function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
+  console.log("Authorization header:", authHeader);
   const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
     return res.status(401).send("Unauthorized access");
   }
 
   try {
+    console.log("Token to verify:", token);
     const decoded = jwt.verify(token, privateKey);
     req.payload = decoded;
     next();
