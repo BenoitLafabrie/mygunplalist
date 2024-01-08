@@ -16,7 +16,7 @@ router.get(
 router.get(
   "/me",
   authHelper.verifyToken,
-  userControllers.getAuthenticatedUserController
+  userControllers.getOneUserByIdController
 );
 
 router.put(

@@ -11,63 +11,57 @@ import FaceBookIcon from "../assets/icons/FaceBookIcon.svg";
 import InstagramIcon from "../assets/icons/InstagramIcon.svg";
 import TwitterIcon from "../assets/icons/TwitterIcon.svg";
 import DiscordIcon from "../assets/icons/DiscordIcon.svg";
-import TwitchIcon from "../assets/icons/TwitchIcon.svg";
+import TiktokIcon from "../assets/icons/tiktok_icon.svg";
 import YoutubeIcon from "../assets/icons/YoutubeIcon.svg";
 
 export default function Footer() {
-  const bgImage = useBreakpointValue({ sm: Footer_Background, md: "none" });
+  const bgImage = useBreakpointValue({ base: Footer_Background, md: "none" });
 
   return (
     <Box
-      display={{ sm: "grid", md: "flex" }}
+      display={{ base: "grid", md: "flex" }}
       w="100%"
-      h={{ sm: "28%", md: "14%" }}
-      flexDirection={{ sm: "unset", md: "column" }}
-      position={{ sm: "static", md: "relative" }}
-      mb={{ sm: "7.5vh", md: "unset" }}
-      pb={{ sm: "unset", md: "0.5em" }}
-      alignItems={{ sm: "center", md: "start" }}
-      alignContent={{ sm: "unset", md: "start" }}
+      h={{ base: "28%", md: "14%" }}
+      flexDirection={{ md: "column" }}
+      position={{ base: "absolute", md: "relative" }}
+      bottom={{ base: "0", md: "unset" }}
+      mb={{ base: "7.5vh", md: "unset" }}
+      pb={{ base: "unset", md: "0.5em" }}
+      alignItems={{ base: "center", md: "start" }}
+      alignContent={{ base: "unset", md: "start" }}
       backgroundImage={bgImage}
-      bgColor={{ sm: "transparent", md: "#F00D32" }}
+      bgColor={{ base: "transparent", md: "#F00D32" }}
       zIndex={2}
-      justifyContent={{ sm: "normal", md: "center" }}
+      justifyContent={{ base: "normal", md: "center" }}
     >
       <Box
-        w={{ sm: "80%", md: "100%" }}
+        w={{ base: "80%", md: "100%" }}
         display="flex"
         justifySelf="center"
-        px={{ sm: "unset", md: "1em" }}
-        mt={{ sm: "unset", md: "0.5em" }}
-        mb={{ sm: "auto", md: "0.5em" }}
-        justifyContent={{ sm: "unset", md: "center" }}
+        px={{ base: "unset", md: "1em" }}
+        mt={{ base: "unset", md: "0.5em" }}
+        mb={{ base: "auto", md: "0.5em" }}
+        justifyContent={{ base: "unset", md: "center" }}
       >
         <Text
           fontSize="60%"
-          fontWeight={{ sm: "normal", md: "bold" }}
+          fontWeight={{ base: "normal", md: "bold" }}
           align="center"
-          textColor={{ sm: "auto", md: "white" }}
+          textColor={{ base: "auto", md: "white" }}
         >
           Les Logos, produits et noms de sociétés mentionnnés sont la propriété
           de leurs auteurs respectifs. ©MyGunplaList 2024
         </Text>
       </Box>
       <Box
-        display={{ sm: "flex", md: "none" }}
+        display={{ base: "flex", md: "none" }}
         justifyContent="center"
         alignItems="center"
-        h="40%"
-        ml="-2em"
+        flexWrap={{ base: "wrap" }}
+        h="70%"
       >
         <Image src={MyGunplaListLogo} w="20%" h="100%" />
-        <Box
-          display="flex"
-          flexDirection="column"
-          h="35px"
-          w="50%"
-          ml="-0.5em"
-          mt="1em"
-        >
+        <Box display="flex" flexDirection="column" h="50%" w="70%">
           <Image src={BrandLogo} pb="0.25em" />
           <Image src={Tagline} />
         </Box>
@@ -76,17 +70,19 @@ export default function Footer() {
         alignContent="center"
         alignItems="center"
         justifyItems="center"
-        marginBottom={{ sm: "auto", md: "0" }}
-        display={{ sm: "grid", md: "flex" }}
-        w={{ sm: "unset", md: "100%" }}
-        justifyContent={{ sm: "unset", md: "space-around" }}
+        marginBottom={{ base: "auto", md: "0" }}
+        display={{ base: "grid", md: "flex" }}
+        gridTemplateColumns="1fr 1fr"
+        gridTemplateRows="1fr"
+        w={{ base: "100%", md: "100%" }}
+        justifyContent={{ base: "center", md: "space-around" }}
       >
         <Box
           display="flex"
-          px={{ sm: "unset", md: "1em" }}
-          flexDirection={{ sm: "column", md: "row" }}
-          gap={{ sm: "unset", md: "1.5em" }}
-          fontSize={{ sm: "80%", md: "90%" }}
+          px={{ base: "unset", md: "1em" }}
+          flexDirection={{ base: "column", md: "row" }}
+          gap={{ base: "0.5em", md: "1.5em" }}
+          fontSize={{ base: "85%", md: "90%" }}
           textColor="white"
           fontWeight="bold"
         >
@@ -100,51 +96,65 @@ export default function Footer() {
             Politique de confidentialité
           </ChakraLink>
         </Box>
-        <Stack display={{ sm: "none", md: "flex" }} flexDirection="row">
-          <Box display={{ sm: "none", md: "flex" }} px="1em">
+        <Stack display={{ base: "grid", md: "flex" }} flexDirection="row">
+          <Box display={{ base: "none", md: "flex" }} px="1em">
             <Text textColor="white" fontWeight="bold">
               Retrouvez-nous sur les réseaux sociaux :
             </Text>
           </Box>
           <Box
-            display={{ sm: "grid", md: "flex" }}
-            flexDirection={{ sm: "unset", md: "row" }}
-            px={{ sm: "unset", md: "1em" }}
-            ml={{ sm: "2em", md: "unset" }}
-            gap={{ sm: "unset", md: "1.5em" }}
+            display="flex"
+            flexDirection="row"
+            flexWrap={{ base: "wrap" }}
+            justifyContent={{ base: "center" }}
+            alignItems={{ base: "center" }}
+            px={{ base: "0", md: "1em" }}
+            gap={{ base: "1.25em", md: "1.5em" }}
           >
             <ChakraLink
               as={ReactRouterLink}
               to="https://www.facebook.com/riseofgunpla"
             >
-              <Image src={FaceBookIcon} />
+              <Image src={FaceBookIcon} boxSize={{ base: "32px" }} />
             </ChakraLink>
             <ChakraLink
               as={ReactRouterLink}
               to="https://www.instagram.com/riseofgunpla"
             >
-              <Image src={InstagramIcon} mt="0.1em" />
+              <Image
+                src={InstagramIcon}
+                mt="0.1em"
+                boxSize={{ base: "32px" }}
+              />
             </ChakraLink>
             <ChakraLink
               as={ReactRouterLink}
               to="https://twitter.com/Riseofgunpla"
             >
-              <Image src={TwitterIcon} mt="0.25em" />
+              <Image
+                src={TwitterIcon}
+                mt={{ base: "0", md: "0.25em" }}
+                boxSize={{ base: "32px" }}
+              />
             </ChakraLink>
             <ChakraLink as={ReactRouterLink} to="https://discord.gg/J2VYmbd">
-              <Image src={DiscordIcon} />
+              <Image src={DiscordIcon} boxSize={{ base: "32px" }} />
             </ChakraLink>
             <ChakraLink
               as={ReactRouterLink}
-              to="https://www.twitch.tv/riseofgunpla"
+              to="https://www.tiktok.com/@riseofgunpla"
             >
-              <Image src={TwitchIcon} mt="0.2em" />
+              <Image src={TiktokIcon} boxSize={{ base: "32px" }} />
             </ChakraLink>
             <ChakraLink
               as={ReactRouterLink}
               to="https://www.youtube.com/channel/UC_CCjUpIV-cBKGAwwrMVzow"
             >
-              <Image src={YoutubeIcon} mt="0.25em" />
+              <Image
+                src={YoutubeIcon}
+                mt={{ base: "0", md: "0.25em" }}
+                boxSize={{ base: "32px" }}
+              />
             </ChakraLink>
           </Box>
         </Stack>

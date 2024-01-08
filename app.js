@@ -40,7 +40,12 @@ process.on("SIGTERM", async () => {
 const app = express();
 const port = 3001;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Specify the exact origin
+    credentials: true, // Allow credentials
+  })
+);
 
 app
   .listen(port, () => {

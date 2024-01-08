@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useToast } from "@chakra-ui/react";
 
@@ -27,19 +27,36 @@ export function AuthProvider({ children }) {
         email: email,
         password: password,
       }),
+      credentials: "include", // Include cookies in the request
     });
 
     if (!response.ok) {
-      throw new Error("Login failed");
+      throw new Error("Échec de la connexion");
     }
 
     const data = await response.json();
-    localStorage.setItem("token", data.token);
     setIsAuthenticated(true);
-    setUser(data.user);
+    setUser(data.user); // Store the user data in state
   };
 
-  // const isAuth = () => !!user;
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await fetch("http://localhost:3001/users/me", {
+        method: "GET",
+        credentials: "include", // Include cookies in the request
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user); // Store the user data in state
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("token");

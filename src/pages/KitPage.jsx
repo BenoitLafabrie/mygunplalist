@@ -170,11 +170,13 @@ export default function KitPage() {
           <Button variant="outline" colorScheme="red">
             Wishlist
           </Button>
-          <ChakraLink as={ReactRouterLink} to={`${item.ROG_Url}`} isExternal>
-            <Button variant="solid" colorScheme="red">
-              Acheter
-            </Button>
-          </ChakraLink>
+          {item.ROG_Url && (
+            <ChakraLink as={ReactRouterLink} to={`${item.ROG_Url}`} isExternal>
+              <Button variant="solid" colorScheme="red">
+                Acheter
+              </Button>
+            </ChakraLink>
+          )}
         </Stack>
         <Stack display="flex" flexDirection="column" gap={0}>
           <Text>Grade: {item.props.grade}</Text>

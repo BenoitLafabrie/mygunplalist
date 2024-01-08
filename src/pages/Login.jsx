@@ -77,9 +77,11 @@ export default function Login() {
             gap: "1em",
           }}
         >
-          <FormControl id="username" isRequired borderColor="#314095" w="80%">
+          <FormControl id="email" isRequired borderColor="#314095" w="80%">
             <FormLabel>E-mail</FormLabel>
             <Input
+              autoComplete="email"
+              name="email"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -88,6 +90,8 @@ export default function Login() {
           <FormControl id="password" isRequired borderColor="#314095" w="80%">
             <FormLabel>Mot de passe</FormLabel>
             <Input
+              autoComplete="current-password"
+              name="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />

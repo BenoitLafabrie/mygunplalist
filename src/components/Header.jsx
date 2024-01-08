@@ -76,6 +76,11 @@ export default function Header() {
               Wishlist
             </Button>
           </ChakraLink>
+          <ChakraLink as={ReactRouterLink} to="/search">
+            <Button color="white" _hover={{ bg: "#314095" }}>
+              Recherche
+            </Button>
+          </ChakraLink>
         </ButtonGroup>
         <HStack spacing={3} display="flex" alignItems="center" py="0.5em">
           <InputGroup display="none">
@@ -99,7 +104,7 @@ export default function Header() {
             <MenuList>
               <MenuItem
                 icon={<HiOutlineUser />}
-                onClick={() => navigate(`/users/${user.user_id}`)}
+                onClick={() => navigate(`/users/${user?.user_id}`)}
               >
                 Profil
               </MenuItem>
