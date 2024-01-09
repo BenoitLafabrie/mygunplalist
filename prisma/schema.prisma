@@ -72,6 +72,7 @@ model Mygunplalist {
   barcode         String? @db.VarChar(255)
   Items           Items[]
   Users           Users   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "Mygunplalist_Users_user_id_fk")
+  // Rajouter un boolean done pour les kits terminés
 }
 
 model User_achievements {
@@ -87,7 +88,7 @@ model Users {
   username          String              @db.VarChar(255)
   firstname         String?             @db.VarChar(255)
   lastname          String?             @db.VarChar(255)
-  email             String              @unique @db.VarChar(255)
+  email             String              @db.VarChar(255)
   password          String              @db.VarChar(255)
   birthdate         DateTime            @db.Date
   address           String?             @db.VarChar(255)

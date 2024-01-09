@@ -38,9 +38,14 @@ process.on("SIGTERM", async () => {
 });
 
 const app = express();
-const port = 3001;
+const port = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Specify the exact origin
+    credentials: true, // Allow credentials
+  })
+);
 
 app
   .listen(port, () => {
@@ -57,7 +62,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", rootRouter);
-app.use("/", authRouter);
+app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 app.use("/user-achievements", userAchievementsRouter);
 app.use("/user-images", userImagesRouter);

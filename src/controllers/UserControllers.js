@@ -40,12 +40,6 @@ const getAllUsersController = async (req, res) => {
         lastname: true,
         email: true,
         birthdate: true,
-        address: true,
-        postcode: true,
-        city: true,
-        country: true,
-        gender: true,
-        createdAt: true,
         role: true,
       },
     });
@@ -57,7 +51,8 @@ const getAllUsersController = async (req, res) => {
 };
 
 const getOneUserByIdController = async (req, res) => {
-  const id = parseInt(req.params.id);
+  console.log("getOneUserByIdController called");
+  const id = req.payload.sub.user_id;
   try {
     const oneUserById = await prisma.users.findUnique({
       where: {
@@ -70,12 +65,6 @@ const getOneUserByIdController = async (req, res) => {
         lastname: true,
         email: true,
         birthdate: true,
-        address: true,
-        postcode: true,
-        city: true,
-        country: true,
-        gender: true,
-        createdAt: true,
         role: true,
       },
     });
@@ -84,42 +73,10 @@ const getOneUserByIdController = async (req, res) => {
     } else {
       res.status(200).send(oneUserById);
     }
+    res.json({ oneUserById });
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
-  }
-};
-
-const getAuthenticatedUserController = async (req, res) => {
-  const id = req.payload.user_id;
-  try {
-    const authenticatedUser = await prisma.users.findUnique({
-      where: {
-        user_id: id,
-      },
-      select: {
-        user_id: true,
-        username: true,
-        firstname: true,
-        lastname: true,
-        email: true,
-        birthdate: true,
-        address: true,
-        postcode: true,
-        city: true,
-        country: true,
-        gender: true,
-        createdAt: true,
-        role: true,
-      },
-    });
-    if (!authenticatedUser) {
-      res.status(404).send("Aucun utilisateur correspondant trouvé");
-    } else {
-      res.status(200).send(authenticatedUser);
-    }
-  } catch (error) {
-    res.status(500).send(error);
   }
 };
 
@@ -149,7 +106,6 @@ export default {
   createUserController,
   getAllUsersController,
   getOneUserByIdController,
-  getAuthenticatedUserController,
   updateUserController,
   deleteUserByIdController,
 };

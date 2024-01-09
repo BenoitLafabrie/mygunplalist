@@ -1,11 +1,11 @@
 import { Box, Image, List, ListItem } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
-import Add_Kit_Icon from "../assets/bottomNavBar/Add_Kit_Icon.svg";
+import Add_Kit_Icon from "../assets/bottomNavBar/add_kit_icon.svg";
 import Collection_Icon from "../assets/bottomNavBar/Collection_Icon.svg";
-import Profile_Icon from "../assets/bottomNavBar/Profile_Icon.svg";
-import Search_Icon from "../assets/bottomNavBar/Search_Icon.svg";
-import Wishlist_Icon from "../assets/bottomNavBar/Wishlist_Icon.svg";
+import Profile_Icon from "../assets/bottomNavBar/profile_icon.svg";
+import Search_Icon from "../assets/bottomNavBar/search_icon.svg";
+import Wishlist_Icon from "../assets/bottomNavBar/wishlist_icon.svg";
 
 export default function BottomNavBar() {
   return (
@@ -16,8 +16,9 @@ export default function BottomNavBar() {
       bg="rgba(240, 13, 50, 1)"
       mb={0}
       bottom={0}
-      boxShadow="0 0 2px #071D26"
+      boxShadow="0 0 4px #071D26"
       display={{ md: "none" }}
+      zIndex={3}
     >
       <List>
         <Box
@@ -113,7 +114,7 @@ export default function BottomNavBar() {
           </ChakraLink>
           <ChakraLink
             as={ReactRouterLink}
-            to="/profile"
+            to={`/users/me`}
             _hover={{ textDecoration: "none" }}
           >
             <ListItem
