@@ -39,8 +39,7 @@ const verifyPassword = async (req, res) => {
       // expiresIn: "1h",
       algorithm: "RS256",
     });
-    res.cookie("token", token, { httpOnly: true });
-    res.status(200).send({ token, user: userWithoutPassword });
+    res.status(200).send({ token });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Error");
@@ -48,8 +47,8 @@ const verifyPassword = async (req, res) => {
 };
 
 function verifyToken(req, res, next) {
-  const token = req.cookies.token;
-  console.log("Token:", token);
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
     return res.status(401).send("Accès refusé");
   }

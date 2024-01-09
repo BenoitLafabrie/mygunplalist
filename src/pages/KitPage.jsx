@@ -46,7 +46,7 @@ export default function KitPage() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3001/kits/${id}`)
+    fetch(`http://localhost:3000/kits/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération du kit");
@@ -54,7 +54,7 @@ export default function KitPage() {
         return response.json();
       })
       .then((item) => {
-        fetch("http://localhost:3001/kits-images")
+        fetch("http://localhost:3000/kits-images")
           .then((imagesResponse) => {
             if (!imagesResponse.ok) {
               throw new Error(
@@ -67,7 +67,7 @@ export default function KitPage() {
             const itemImages = images.filter(
               (image) => image.item_id === item.item_id
             );
-            fetch(`http://localhost:3001/kits-props/${item.item_id}`)
+            fetch(`http://localhost:3000/kits-props/${item.item_id}`)
               .then((propsResponse) => {
                 if (!propsResponse.ok) {
                   throw new Error(
